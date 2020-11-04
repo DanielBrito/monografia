@@ -5,7 +5,8 @@ Trabalho de Conclusão de Curso apresentado ao Curso de Graduação em Ciência 
 ## Orientação
 
 **Orientador:** Msc. Arnaldo Barreto
-**coorientador:** Msc. Arnaldo Barreto
+
+**Coorientador:** Msc. Ítalo Ribeiro
 
 ## Resumo
 
