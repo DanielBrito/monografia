@@ -1,0 +1,55 @@
+\chapter{Introdução}
+\label{cap:introducao}
+
+Neste capítulo, apresentam-se alguns contextos nos quais a técnica de modelagem procedural é aplicada, bem como as motivações e os objetivos do presente trabalho.
+
+\section{Contextualização}
+\label{sec:contextualização}
+
+Nos últimos trinta anos, a modelagem procedural tem sido um eminente tópico de pesquisa, devido ao fato de que simulações de realidade virtual, jogos e filmes, têm se tornado cada vez mais prevalecentes. 
+
+Na indústria cinematográfica, boa parte das produções utiliza recursos de Computação Gráfica. Um exemplo é o filme \textit{Avatar}, produzido e dirigido por James Cameron, sendo a primeira obra a contar com um mundo 3D foto-realista totalmente gerado por computador: o planeta Pandora \cite{simon2011}.
+
+A indústria de jogos, por sua vez, ultrapassou a indústria do cinema, e alguns \textit{video games} têm orçamentos maiores do que os sucessos de bilheteria de Hollywood \cite{teboul2011}. Um dos exemplos que mais se destaca é a série \textit{Grand Theft Auto}, que combina comportamentos quase totalmente irrestritos em ambientes virtuais inspirados em cidades existentes dos Estados Unidos, como Nova Iorque e Miami \cite{simon2011}.
+
+A modelagem procedural é aplicada em uma grande variedade de áreas, como na geração de texturas, plantas, terrenos, edifícios, cidades, estradas, malhas fluviais, entre outras. A geração de edifícios, em particular, é uma das mais desenvolvidas, possuindo métodos que podem ser amplamente empregados na criação de modelos detalhados e realistas \cite{smelik2014}. 
+
+Além dos segmentos da indústria citados anteriormente, a modelagem procedural também pode ser utilizada no planejamento urbano, em análises logísticas e simulações, uma vez que representações realistas de um espaço urbano podem ser aplicadas em treinamentos de socorro, análise de rotas, planos de evacuação, mapeamento de tráfego, entre outras situações \cite{francisco2014}.
+
+Seja qual for o cenário, a atividade de criar um ambiente virtual é bastante complexa, visto que existe uma crescente demanda pela modelagem de arquiteturas com características cada vez mais próximas da realidade, o que aumenta, significativamente, a carga de trabalho dos artistas e animadores.
+
+\section{Justificativa}
+\label{sec:justificativa}
+
+A geração procedural de edifícios 3D pode reduzir radicalmente os custos de modelagem, uma vez que permite a criação de uma variedade de formas semelhantes a partir de uma descrição procedural. 
+
+Um campo comum de aplicação para modelagem procedural é a geração de fachadas de prédios retos. Entretanto, na geração de estruturas arquitetônicas mais complexas, diversas técnicas existentes se tornam incapazes de produzir os resultados esperados, como alguns métodos aleatórios, classificados como estocásticos, que não permitem a edição dos modelos de maneira direta pelos usuários.
+
+Neste contexto, o presente trabalho tem como principal contribuição apresentar uma abordagem, baseada na utilização de técnicas de deformação, cujo intuito é resolver a limitação da geração de modelos arquiteturais com geometria arredondada existente na \gls{SELEX}, uma linguagem de modelagem procedural relativamente recente, que apresenta uma evolução em relação às clássicas \textit{CGA Shape} e \textit{CGA++}.
+
+\section{Objetivos}
+\label{sec:objetivos}
+
+Nesta seção, apresentam-se os objetivos deste trabalho, sendo divididos em Objetivo geral e Objetivos específicos.
+
+\subsection{Objetivo geral}
+\label{sec:objetivos_gerais}
+
+Gerar modelos arquiteturais com geometria arredondada utilizando \textit{SELEX}, por meio da especificação de uma nova operação de deformação.
+
+% Feedback da Lisieux: Para os objetivos específicos, avalie ajustar o primeiro e o segundo, reforçando a caracterização de objetivos de pesquisa. Algo como "Implementar e avaliar a gramática para a geração de modelos arquiteturais"; "Avaliar a aplicação de técnicas de deformação para a criação de estruturas arredondadas no modelo utilizado"
+
+\subsection{Objetivos específicos}
+\label{sec:objetivos_especificos}
+
+\begin{itemize}
+    \item Implementar e avaliar a linguagem para geração de modelos arquiteturais;
+    \item Integrar linguagem com ferramenta de modelagem 3D por meio de \textit{scripts};
+    \item Avaliar a aplicação de técnicas de deformação para criação de modelos arquiteturais com geometria arredondada;
+    \item Avaliar o resultado obtido frente a alguns exemplos do mundo real.
+\end{itemize}
+
+\section{Estrutura do trabalho}
+\label{sec:estrutura_trabalho}
+
+O presente trabalho está disposto em 4 capítulos. No Capítulo \ref{cap:fundamentacao-teorica}, são apresentados conceitos e técnicas do estado da arte, para o melhor entendimento dos capítulos seguintes, por meio de uma fundamentação teórica. No Capítulo \ref{cap:trabalhos-correlatos}, são introduzidas ideias pertinentes à resolução do problema a ser abordado com base em trabalhos correlatos. No Capítulo \ref{chap:metodologia}, descreve-se o problema e uma possível abordagem para resolvê-lo.

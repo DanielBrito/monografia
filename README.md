@@ -23,3 +23,9 @@ Modelar ambientes virtuais é uma tarefa árdua, podendo requerer grande tempo e
 Modeling virtual environments is an arduous task, and may require great time and effort on the part of the artists, if they choose to generate each element manually. Based on this, the procedural modeling came up with the proposal to bring some benefits with regard to the generation of the various layers of virtual environments, such as vegetation, land, roads, rivers, buildings and cities. Such models, in turn, can be applied in various scenarios, such as urban planning, games, movies, simulations, among others. However, some challenges also emerged, such as the lack of intuitiveness in the use of some existing frameworks, the semantics in relation to the layout of elements in the models, the degree of realism with which they are displayed, and the generation of more complex forms, for example, rounded structures. Several researches try to mitigate the challenges mentioned above, thus, following this premise, the present work describes an approach to solve the problem of generating architectural models with rounded geometry using SELEX, through the application of deformation techniques.
 
 **Keywords:** Virtual environments. Procedural modeling. Architectural modeling. Grammars. Selection Expressions. Deformation.
+
+---
+
+### Código-fonte
+
+Para ler o documento a partir do código-fonte é só importar o *.zip* da pasta *TCC - Daniel Brito* no [Overleaf](https://www.overleaf.com/).

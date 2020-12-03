@@ -1,0 +1,196 @@
+\documentclass[        
+    a4paper,          % Tamanho da folha A4
+    12pt,             % Tamanho da fonte 12pt
+    chapter=TITLE,    % Todos os capitulos devem ter caixa alta
+    section=Title,    % Todas as secoes devem ter caixa alta somente na primeira letra
+    subsection=Title, % Todas as subsecoes devem ter caixa alta somente na primeira letra
+    oneside,          % Usada para impressao em apenas uma face do papel
+    english,          % Hifenizacoes em ingles
+    spanish,          % Hifenizacoes em espanhol
+    brazil,           % Ultimo idioma eh o idioma padrao do documento
+    fleqn             % Comente esta linha se quiser centralizar as equacoes. Comente também a linha 65 abaixo
+]{abntex2}
+
+\input{lib/preambulo}
+
+\setlength{\mathindent}{0pt} %Complementa o alinhamento de equações para totalmente a esquerda.
+
+\trabalhoacademico{tccgraduacao}
+
+\ehqualificacao{nao}
+
+\removerbordasdohyperlink{sim} 
+
+\cordohyperlink{nao} % Adiciona a cor Azul a todos os hyperlinks
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%         Informacao sobre a instituicao          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ies{Universidade Federal do Ceará}
+\iessigla{UFC}
+\centro{Campus de Crateús}
+%\departamento{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        Informacao para TCC de Graduacao         %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graduacaoem{Ciência da Computação}
+\habilitacao{bacharel} % Ou licenciado(a)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     Informacao para TCC de Especializacao       %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\especializacaoem{Yyyyyyyyy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%         Informacao para Dissertacao             %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\programamestrado{Programa de Pós-Graduação em Xxxxxxx}
+\nomedomestrado{Mestrado Acadêmico em Xxxxxxx}
+\mestreem{Engenharia Xxxxxx}
+\areadeconcentracaomestrado{Engenharia Xxxxxx}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%               Informação para Tese              %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\programadoutorado{Programa de Pós-Graduação em Xxxxxx}
+\nomedodoutorado{Doutorado em Xxxxxxx}
+\doutorem{Engenharia Xxxxxx}
+\areadeconcentracaodoutorado{Engenharia Xxxxxxx}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%      Informacoes relacionadas ao trabalho       %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\autor{Daniel Henrique de Brito}
+\titulo{Geração procedural de modelos arquiteturais com geometria arredondada utilizando \textit{Selection Expressions} (\textit{SELEX})}
+\data{2020}
+\local{Crateús}
+
+% Exemplo: \dataaprovacao{01 de Janeiro de 2012}
+\dataaprovacao{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%           Informação sobre o Orientador         %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\orientador{Prof. Msc. Arnaldo Barreto Vila Nova}
+\orientadories{Universidade Federal do Ceará (UFC)}
+\orientadorcentro{Campus de Crateús}
+\orientadorfeminino{nao} % Coloque 'sim' se for do sexo feminino
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%          Informação sobre o Coorientador        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Deixe o nome do coorientador em branco para remover do documento
+
+\coorientador{Prof. Msc. Ítalo Mendes da Silva Ribeiro}
+\coorientadories{Universidade Federal do Ceará (UFC)}
+\coorientadorcentro{Campus de Crateús}
+\coorientadorfeminino{nao} % Coloque 'sim' se for do sexo feminino
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%              Informação sobre a banca           %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Atenção! Deixe em branco o nome do membro da banca para remover da folha de aprovacao
+
+% Exemplo de uso:
+% \membrodabancadois{Prof. Dr. Fulano de Tal}
+% \membrodabancadoisies{Universidade Federal do Ceará - UFC}
+
+\membrodabancadois{Prof. Dr. Markos Oliveira Freitas}
+\membrodabancadoiscentro{Campus de Russas}
+\membrodabancadoisies{Universidade Federal do Ceará (UFC)}
+
+\membrodabancatres{Prof. Msc. Lisieux Marie M. dos Santos Andrade}
+\membrodabancatrescentro{Campus de Crateús}
+\membrodabancatresies{Universidade Federal do Ceará (UFC)}
+
+% \membrodabancaquatro{Prof. Dr. Xxxxxxx Xxxxxx Xxxxxxx}
+% \membrodabancaquatrocentro{Centro de Ciências e Tecnologia (CCT)}
+% \membrodabancaquatroies{Universidade do Membro da Banca Quatro (SIGLA)}
+
+% \membrodabancacinco{Prof. Dr. Xxxxxxx Xxxxxx Xxxxxxx}
+% \membrodabancacincocentro{Teste}
+% \membrodabancacincoies{Universidade do Membro da Banca Cinco (SIGLA)}
+
+% \membrodabancaseis{Prof. Dr. Xxxxxxx Xxxxxx Xxxxxxx}
+% \membrodabancaseiscentro{}
+% \membrodabancaseisies{Universidade do Membro da Banca Seis (SIGLA)}
+
+% --- MINHAS MACROS --- %
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+% --------------------- %
+
+\begin{document}	
+
+	% Elementos pré-textuais
+	\imprimircapa
+	\imprimirfolhaderosto{}
+	
+	%\imprimirfichacatalografica{1-pre-textuais/ficha-catalografica}
+	
+	%\imprimirerrata{elementos-pre-textuais/errata}
+	
+	\imprimirfolhadeaprovacao
+	
+	\imprimirdedicatoria{1-pre-textuais/dedicatoria}
+	
+	\imprimiragradecimentos{1-pre-textuais/agradecimentos}
+	
+	\imprimirepigrafe{1-pre-textuais/epigrafe}
+	
+	\imprimirresumo{1-pre-textuais/resumo}
+	\imprimirabstract{1-pre-textuais/abstract}
+	
+	\renewcommand*\listfigurename{Lista de Figuras}
+	\imprimirlistadeilustracoes
+	\imprimirlistadetabelas
+	%\imprimirlistadequadros
+	%\imprimirlistadealgoritmos
+	%\imprimirlistadecodigosfonte
+	
+	\imprimirlistadeabreviaturasesiglas
+	
+	%\imprimirlistadesimbolos{1-pre-textuais/lista-de-simbolos}   
+	
+	\imprimirsumario
+	
+	\setcounter{table}{0} % Deixe este comando antes da primeira tabela.
+	
+	%Elementos textuais
+	\textual
+	\input{2-textuais/1-introducao}
+	\input{2-textuais/2-fundamentacao-teorica}
+	\input{2-textuais/3-trabalhos-correlatos}
+	\input{2-textuais/4-metodologia}
+	%\input{2-textuais/5-resultados}
+	%\input{2-textuais/6-conclusao}
+	
+	%Elementos pós-textuais	
+	\bibliography{3-pos-textuais/referencias}
+	
+%	\imprimirglossario	
+
+	\imprimirapendices
+		% Adicione aqui os apendices do seu trabalho
+		\input{3-pos-textuais/apendices/apendice-a}
+		\input{3-pos-textuais/apendices/apendice-b}
+%		\input{3-pos-textuais/apendices/apendice-c}
+%		\input{3-pos-textuais/apendices/apendice-d}
+
+	% \imprimiranexos
+		% Adicione aqui os anexos do seu trabalho
+		% \input{3-pos-textuais/anexos/anexo-a} 
+		% \input{3-pos-textuais/anexos/anexo-b}	
+
+%	\imprimirindice
+
+\end{document}
