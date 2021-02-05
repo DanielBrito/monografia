@@ -6,11 +6,11 @@ floors = 6
 columns = 7
 size = 1
 
-# Create a single vertex
+# Create a single vertex:
 def vert(column, row):
   return (column * size, row * size, 0)
 
-# Create a single face
+# Create a single face:
 def face(column, row):
   return (column* floors + row,
     		 (column + 1) * floors + row,
