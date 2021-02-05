@@ -1,4 +1,4 @@
-# Geração procedural de modelos arquiteturais com geometria arredondada utilizando Selection Expressions (SELEX)
+# :classical_building: Geração procedural de modelos arquiteturais com geometria arredondada utilizando Selection Expressions (SELEX)
 
 Trabalho de Conclusão de Curso apresentado ao Curso de Graduação em Ciência da Computação do Campus de Crateús da Universidade Federal do Ceará, como requisito parcial à obtenção do grau de bacharel em Ciência da Computação.
 
