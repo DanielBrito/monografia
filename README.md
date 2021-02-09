@@ -1,6 +1,6 @@
-# 🎓 Trabalho de Conclusão de Curso
+# :classical_building: Trabalho de Conclusão de Curso
 
-## :classical_building: Geração procedural de modelos arquiteturais com geometria arredondada utilizando Selection Expressions (SELEX)
+## Geração procedural de modelos arquiteturais com geometria arredondada utilizando Selection Expressions (SELEX)
 
 Trabalho de Conclusão de Curso apresentado ao Curso de Graduação em Ciência da Computação do Campus de Crateús da Universidade Federal do Ceará, como requisito parcial à obtenção do grau de bacharel em Ciência da Computação.
 
@@ -31,3 +31,9 @@ Modeling virtual environments is an arduous task, and may require great time and
 #### Código-fonte
 
 Para ler o documento a partir do código-fonte (.tex) é só importar o *.zip* da pasta *TCC - Daniel Brito* no [Overleaf](https://www.overleaf.com/).
+
+---
+
+#### Apresentação
+
+O arquivo da apresentação do TCC I pode ser encontrado [aqui](https://github.com/DanielBrito/monografia/blob/main/Apresenta%C3%A7%C3%A3o%20-%20TCC%20I.pdf).
