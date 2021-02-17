@@ -66,6 +66,7 @@ def create3DMass(label, width, depth, height):
     
     return mass
 
+
 '''Utility functions for grid generation:'''
 
 def vert(x, y, sizeRows, sizeColumns):
@@ -78,6 +79,7 @@ def face(x, y, rows):
            (x + 1) * rows + y,
            (x + 1) * rows + 1 + y,
            x * rows + 1 + y)
+
 
 '''Creates virtual shape:'''
 
@@ -124,6 +126,307 @@ def createGrid(label, width, height, rows, columns):
     
     return mesh
 
+'''Round shape:'''
+
+def roundShape(object, side, degree, segments, axis=""):
+    center = object.center
+    
+    # DEBUG: Printing center coordinate of the face:
+    print("CENTER COORDINATE = ", center)
+    
+    # Retrieving vertices of the face:    
+    verts = object.vertices
+
+    # Selecting vertices of the face:
+    for v in verts:
+        # DEBUG:
+        # print("VERT: ", v)
+        bpy.context.active_object.data.vertices[v].select = True
+        
+    # Storing selected vertexes form object:
+    selectedVerts = [v for v in bpy.context.active_object.data.vertices if v.select]
+    
+    # Deselecting vertices:
+    for v in verts:
+        bpy.context.active_object.data.vertices[v].select = False
+
+    # DEBUG: Printing coordinates of the selected vertexes:
+    # for v in selectedVerts:
+    #     print("vertex index = ", v.index)
+    #     print("vertex coordinate = ", v.co)
+        
+    x, y, z = 0, 1, 2
+    
+    # Round left:
+    if side == "left":
+        # DEBUG:
+        print("ROUND LEFT")
+            
+        for v in selectedVerts:
+            # DEBUG:
+            # print(v.co, center)
+                        
+            # Checking for upper left vertex:
+            if v.co[x] < center[x] and v.co[z] > center[z]:
+                print("selecting vertex = ", v.index)
+                bpy.context.active_object.data.vertices[v.index].select = True
+                
+            # Checking for bottom left vertex:
+            if v.co[x] < center[x] and v.co[z] < center[z]:
+                print("selecting vertex = ", v.index)
+                bpy.context.active_object.data.vertices[v.index].select = True
+        
+        # Changing object mode:
+        bpy.ops.object.mode_set(mode = 'EDIT')  
+        bpy.ops.mesh.select_mode(type="VERT")
+        
+        # Applying deformation:              
+        bpy.ops.mesh.bevel(offset=degree, offset_pct=0, segments=segments, vertex_only=False)
+        
+        bpy.ops.object.mode_set(mode = 'OBJECT')
+         
+    # Round right:       
+    if side == "right":
+        # DEBUG:
+        print("ROUND RIGHT")
+            
+        for v in selectedVerts:
+            # DEBUG:
+            # print(v.co, center)
+                        
+            # Checking for upper right vertex:
+            if v.co[x] > center[x] and v.co[z] > center[z]:
+                print("selecting vertex = ", v.index)
+                bpy.context.active_object.data.vertices[v.index].select = True
+                
+            # Checking for bottom right vertex:
+            if v.co[x] > center[x] and v.co[z] < center[z]:
+                print("selecting vertex = ", v.index)
+                bpy.context.active_object.data.vertices[v.index].select = True
+
+        # Changing object mode:
+        bpy.ops.object.mode_set(mode = 'EDIT')  
+        bpy.ops.mesh.select_mode(type="VERT")
+        
+        # Applying deformation:
+        bpy.ops.mesh.bevel(offset=degree, offset_pct=0, segments=segments, vertex_only=False)
+        
+        bpy.ops.object.mode_set(mode = 'OBJECT')
+    
+    # Round top:
+    if side == "top":
+        # DEBUG:
+        print("ROUND TOP")
+            
+        for v in selectedVerts:
+            # DEBUG:
+            # print(v.co, center)
+                        
+            # Checking for upper right vertex:
+            if v.co[x] < center[x] and v.co[z] > center[z]:
+                print("selecting vertex = ", v.index)
+                bpy.context.active_object.data.vertices[v.index].select = True
+                
+            # Checking for bottom right vertex:
+            if v.co[x] > center[x] and v.co[z] > center[z]:
+                print("selecting vertex = ", v.index)
+                bpy.context.active_object.data.vertices[v.index].select = True
+
+        # Changing object mode:
+        bpy.ops.object.mode_set(mode = 'EDIT')  
+        bpy.ops.mesh.select_mode(type="VERT")
+        
+        # Applying deformation:
+        bpy.ops.mesh.bevel(offset=degree, offset_pct=0, segments=segments, vertex_only=False)
+        
+        bpy.ops.object.mode_set(mode = 'OBJECT')
+     
+    # Round bottom:   
+    if side == "bottom":
+        # DEBUG:
+        print("ROUND BOTTOM")
+            
+        for v in selectedVerts:
+            # DEBUG:
+            # print(v.co, center)
+                        
+            # Checking for upper right vertex:
+            if v.co[x] < center[x] and v.co[z] < center[z]:
+                print("selecting vertex = ", v.index)
+                bpy.context.active_object.data.vertices[v.index].select = True
+                
+            # Checking for bottom right vertex:
+            if v.co[x] > center[x] and v.co[z] < center[z]:
+                print("selecting vertex = ", v.index)
+                bpy.context.active_object.data.vertices[v.index].select = True
+
+        # Changing object mode:
+        bpy.ops.object.mode_set(mode = 'EDIT')  
+        bpy.ops.mesh.select_mode(type="VERT")
+        
+        # Applying deformation:
+        bpy.ops.mesh.bevel(offset=degree, offset_pct=0, segments=segments, vertex_only=False)
+        
+        bpy.ops.object.mode_set(mode = 'OBJECT')
+
+    # Performing a mix of round left and right, but with edges:
+    if side == "front" and axis == "vertical":
+        # DEBUG:
+        print("ROUND FRONT VERTICAL")
+        
+        leftEdgeIndex, rightEdgeIndex = 0, 0
+        vertexA, vertexB = None, None
+        
+        # Searching for left edge:
+        for v in selectedVerts:
+            # DEGUG:
+            # print("VERT: ", v.index, v.co)
+                        
+            # Checking for upper left vertex:
+            if v.co[x] < center[x] and v.co[z] > center[z] and round(v.co[y]) == round(center[y]):
+                print("selecting upper left vertex = ", v.index)
+                vertexA = bpy.context.active_object.data.vertices[v.index]
+                
+            # Checking for bottom left vertex:
+            if v.co[x] < center[x] and v.co[z] < center[z] and round(v.co[y]) == round(center[y]):
+                print("selecting bottom left vertex = ", v.index)
+                vertexB = bpy.context.active_object.data.vertices[v.index]
+                
+        bpy.ops.object.mode_set(mode = 'EDIT')
+        
+        if vertexA == None or vertexB ==None:
+            # DEBUG: Checking if the vertex were found:
+            print("NONE: ", vertexA, vertexB)
+            return
+        
+        for e in bpy.context.active_object.data.edges:
+            # DEGUG: Printing edge keys:
+            # print("left edge keys: ", e.vertices[0], e.vertices[1])
+            
+            # Storing edge index:
+            if (e.vertices[0] == vertexA.index and e.vertices[1] == vertexB.index) or (e.vertices[0] == vertexB.index and e.vertices[1] == vertexA.index):
+                print("left edge: ", e.index)
+                leftEdgeIndex = e.index
+                
+        # Searching for right edge:
+        for v in selectedVerts:
+            # DEGUG:
+            # print(v.co, center)
+                        
+            # Checking for upper right vertex:
+            if v.co[x] > center[x] and v.co[z] > center[z] and round(v.co[y]) == round(center[y]):
+                print("selecting upper right vertex = ", v.index)
+                vertexA = bpy.context.active_object.data.vertices[v.index]
+                
+            # Checking for bottom right vertex:
+            if v.co[x] > center[x] and v.co[z] < center[z] and round(v.co[y]) == round(center[y]):
+                print("selecting bottom right vertex = ", v.index)
+                vertexB = bpy.context.active_object.data.vertices[v.index]
+                
+        bpy.ops.object.mode_set(mode = 'EDIT')
+        bpy.ops.mesh.select_mode(type="EDGE")
+        
+        for e in bpy.context.active_object.data.edges:
+            # DEGUG: Printing edge keys:
+            # print("right edge keys: ", e.vertices[0], e.vertices[1])
+
+            # Storing edge index:
+            if (e.vertices[0] == vertexA.index and e.vertices[1] == vertexB.index) or (e.vertices[0] == vertexB.index and e.vertices[1] == vertexA.index):
+                print("right edge: ", e.index)
+                rightEdgeIndex = e.index
+                
+        # Selecting edges:
+        bpy.ops.object.mode_set(mode = 'OBJECT')
+
+        # Selecting internal edges:
+        bpy.context.active_object.data.edges[leftEdgeIndex].select = True
+        bpy.context.active_object.data.edges[rightEdgeIndex].select = True
+        
+        # Applying deformation:
+        bpy.ops.object.mode_set(mode = 'EDIT')
+        bpy.ops.mesh.bevel(offset=degree, offset_pct=0, segments=segments, vertex_only=False)
+        
+        bpy.ops.object.mode_set(mode = 'OBJECT')
+        
+    # Performing a mix of round top and bottom, but with edges:
+    if side == "front" and axis == "horizontal":
+        # DEBUG:
+        print("ROUND FRONT HORIZONTAL")
+        
+        topEdgeIndex, bottomEdgeIndex = 0, 0
+        vertexA, vertexB = None, None
+        
+        # Searching for top edge:
+        for v in selectedVerts:
+            # DEGUG:
+            # print(v.co, center)
+                        
+            # Checking for upper left vertex:
+            if v.co[x] < center[x] and v.co[z] > center[z] and round(v.co[y]) == round(center[y]):
+                print("selecting upper left vertex = ", v.index)
+                vertexA = bpy.context.active_object.data.vertices[v.index]
+                
+            # Checking for upper right vertex:
+            if v.co[x] > center[x] and v.co[z] > center[z] and round(v.co[y]) == round(center[y]):
+                print("selecting upper right vertex = ", v.index)
+                vertexB = bpy.context.active_object.data.vertices[v.index]
+                
+        bpy.ops.object.mode_set(mode = 'EDIT')
+        
+        if vertexA == None or vertexB ==None:
+            # DEBUG: Checking if the vertex were found:
+            print("NONE: ", vertexA, vertexB)
+            return
+        
+        for e in bpy.context.active_object.data.edges:
+            # DEGUG: Printing edge keys:
+            # print("left edge keys: ", e.vertices[0], e.vertices[1])
+            
+            # Storing edge index:
+            if (e.vertices[0] == vertexA.index and e.vertices[1] == vertexB.index) or (e.vertices[0] == vertexB.index and e.vertices[1] == vertexA.index):
+                print("top edge: ", e.index)
+                topEdgeIndex = e.index
+                
+        # Searching for bottom edge:
+        for v in selectedVerts:
+            # DEGUG:
+            # print(v.co, center)
+                        
+            # Checking for bottom left vertex:
+            if v.co[x] < center[x] and v.co[z] < center[z] and round(v.co[y]) == round(center[y]):
+                print("selecting bottom left vertex = ", v.index)
+                vertexA = bpy.context.active_object.data.vertices[v.index]
+                
+            # Checking for bottom right vertex:
+            if v.co[x] > center[x] and v.co[z] < center[z] and round(v.co[y]) == round(center[y]):
+                print("selecting bottom right vertex = ", v.index)
+                vertexB = bpy.context.active_object.data.vertices[v.index]
+                
+        bpy.ops.object.mode_set(mode = 'EDIT')
+        bpy.ops.mesh.select_mode(type="EDGE")
+        
+        for e in bpy.context.active_object.data.edges:
+            # DEGUG: Printing edge keys:
+            # print("right edge keys: ", e.vertices[0], e.vertices[1])
+
+            # Storing edge index:
+            if (e.vertices[0] == vertexA.index and e.vertices[1] == vertexB.index) or (e.vertices[0] == vertexB.index and e.vertices[1] == vertexA.index):
+                print("bottom edge: ", e.index)
+                bottomEdgeIndex = e.index
+                
+        # Selecting edges:
+        bpy.ops.object.mode_set(mode = 'OBJECT')
+
+        # Selecting internal edges:
+        bpy.context.active_object.data.edges[topEdgeIndex].select = True
+        bpy.context.active_object.data.edges[bottomEdgeIndex].select = True
+        
+        # Applying deformation:
+        bpy.ops.object.mode_set(mode = 'EDIT')
+        bpy.ops.mesh.bevel(offset=degree, offset_pct=0, segments=segments, vertex_only=False)
+        
+        bpy.ops.object.mode_set(mode = 'OBJECT')
+        
 ########################################################################
 
 ''' ---------------------- RESETING THE SCENE: ---------------------- '''
@@ -143,6 +446,7 @@ label = "building"
 width = 9
 depth = 11
 height = 5
+
 
 '''C2: {<> -> createShape("building", height, width, depth)};'''
 
@@ -179,8 +483,9 @@ bpy.ops.object.mode_set(mode = "EDIT")
 bpy.ops.mesh.select_all(action = "DESELECT")
 bpy.ops.object.mode_set(mode = "OBJECT")
 
+
 '''C3: {<[label=="building_front"]> 
-       -> createGrid("facade", 4, 4)};'''
+       -> createGrid("facade", 3, 5)};'''
     
 frontFace = building.descendant("building_front")
 
@@ -233,11 +538,12 @@ bpy.context.object.location[1] = (-building.getDimY()) / 2
 ## For 'right' location:
 # bpy.context.object.location[0] = building.getDimX() / 2
 
+
 '''C4: {<descendant()[label=="building"] / 
                      [label=="building_front"] / 
                      [label=="facade"] / 
                      [type=="cell"] 
-                     [rowIdx in (3, 4)] 
+                     [rowIdx in (2, 3)] 
                      [colIdx in (1, 2)> 
                      -> addVolume("entrance", "building_front", 1, ["ef", "el", "er"])};'''
 
@@ -421,7 +727,7 @@ bpy.ops.object.mode_set(mode = 'OBJECT')
 bpy.data.objects["building"].data.polygons[regionIdx].select = True
 
 # Extrusion setting (h = height):
-extrusionHeight = 2
+extrusionHeight = 2.5
 
 # Changing object mode:
 bpy.ops.object.mode_set(mode = 'EDIT')
@@ -434,89 +740,27 @@ bpy.ops.mesh.extrude_region_move(
     TRANSFORM_OT_translate={"value":(0, -extrusionHeight, 0)}
 )
 
-# TO-DO: ORGANIZE SHAPE TREE WITH NEW NODES...
+
+#                 TO-DO: ORGANIZE SHAPE TREE WITH NEW NODES HERE...
+
 
 '''C4: {<descendant()[label=="entrance"] / [label=="ef"]> 
-       -> roundShape("front", 1.0, "vertical")};'''
+       -> roundShape("front", 1.0, 30, "vertical")};'''
        
-## Settings: offset = degree of rounding | segments = degree of 'realism'
-roundingDegree = 0.365 # vertical
-# roundingDegree = 0.365*1.7 # horizontal
+## Settings: offset = degree of roundness | segments = degree of 'realism'
+roundingDegree = 0.3
 numberSegments = 30
+deformationType = "left" # front | left | right | bottom | top
+deformationAxis = "horizontal" # 'frontal' deformation: vertical | horizontal
 
-# Changing object mode:       
-bpy.ops.object.mode_set(mode = 'EDIT')
 bpy.ops.mesh.select_all(action = 'DESELECT')
 bpy.ops.object.mode_set(mode = 'OBJECT')
 
-# Entering edges indexes (just for testing):
-# e1 = int(input("Enter first edge: "))
-# e2 = int(input("Enter second edge: "))
+# Storing selected face of the object (label = ef):
+entranceFront = bpy.data.objects["building"].data.polygons[regionIdx+1]
 
-# Selecting left and right edges from the face (round front - vertical):
-## STILL HARDCODED... left = 17 and right = 19
-bpy.data.objects["building"].data.edges[17].select = True
-bpy.data.objects["building"].data.edges[19].select = True
+# Calling deformation function:
 
-# Changing object mode:
-bpy.ops.object.mode_set(mode = 'EDIT')
+roundShape(entranceFront, deformationType, roundingDegree, numberSegments, deformationAxis)
 
-# Applying (front - vertical) deformation itself:
-bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=numberSegments, vertex_only=False)
-
-bpy.ops.object.mode_set(mode = 'OBJECT')
-
-# OR
-
-# Selecting top and bottom edges from the face (round front - horizontal):
-## TO-DO
-
-# Changing object mode:
-# bpy.ops.object.mode_set(mode = 'EDIT')
-
-# Applying (front - horizontal) deformation itself:
-# bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=numberSegments, vertex_only=False)
-
-# OR
-
-# Selecting left edge from the face (round left):
-## TO-DO
-
-# Changing object mode:
-# bpy.ops.object.mode_set(mode = 'EDIT')
-
-# Applying (left) deformation itself:
-# bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=numberSegments, vertex_only=False)
-
-# OR
-
-# Selecting right edge from the face (round right):
-## TO-DO
-
-# Changing object mode:
-# bpy.ops.object.mode_set(mode = 'EDIT')
-
-# Applying (right) deformation itself:
-# bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=numberSegments, vertex_only=False)
-
-# OR
-
-# Selecting top edge from the face (round top):
-## TO-DO
-
-# Changing object mode:
-# bpy.ops.object.mode_set(mode = 'EDIT')
-
-# Applying (top) deformation itself:
-# bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=numberSegments, vertex_only=False)
-
-# OR
-
-# Selecting bottom edge from the face (round bottom):
-## TO-DO
-
-# Changing object mode:
-# bpy.ops.object.mode_set(mode = 'EDIT')
-
-# Applying (bottom) deformation itself:
-# bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=numberSegments, vertex_only=False)
+print("-----------------------------------------------------------------------")
