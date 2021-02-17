@@ -18,7 +18,7 @@ rotation_axis = 'X'
 
 # Utility Functions:
 def vert(x,y,z): 
-    """ Make a vertex """ 
+    ## Make a vertex
     return (x + origin_offset[0], y + origin_offset[1], z + origin_offset[2]) 
 
 # Cube Code:

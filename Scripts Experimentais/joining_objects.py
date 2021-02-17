@@ -1,6 +1,8 @@
 import bpy
 import bmesh
 
+# Assuming there are a 'Cube' and 'Plane' (over its face):
+
 # Selecting objects to be joined:
 bpy.data.objects["Cube"].select_set(True)
 bpy.data.objects["Plane"].select_set(True)

@@ -8,7 +8,7 @@ bpy.ops.mesh.select_mode(type="VERT")
 bpy.ops.mesh.select_all(action = 'DESELECT')
 bpy.ops.object.mode_set(mode = 'OBJECT')
 
-# Selecting vertex by it's index:
+# Selecting vertex by its index:
 obj.data.vertices[6].select = True
 
 bpy.ops.object.mode_set(mode = 'EDIT') 

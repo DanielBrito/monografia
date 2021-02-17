@@ -6,7 +6,7 @@ def create_custom_mesh(objname, px, py, pz):
     myvertex = []
     myfaces = []
 
-    # Create all Vertices:
+    # Create all vertices:
     mypoint = [(-1.0, -1.0, 0.0)] # vertex 0
     myvertex.extend(mypoint)
 

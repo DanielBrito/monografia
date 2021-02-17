@@ -4,12 +4,12 @@ import math
 ''' ------------------ DATA STRUCTURES: ------------------ '''
 
 class Node(object):
-    # Label and Object are required for every node:
-    def __init__(self, label, obj, dimX=0, dimY=0, dimZ=0):
+    # Attributes 'label' and 'object' are required for every node:
+    def __init__(self, label, object, dimX=0, dimY=0, dimZ=0):
         # Object label
         self.label = label
         # Object itself: 
-        self.obj = obj
+        self.obj = object
         # Subshapes:
         self.children = []
         # Dimensions:
@@ -17,8 +17,8 @@ class Node(object):
         self.dimY = dimY
         self.dimZ = dimZ
         
-    def addChild(self, obj):
-        self.children.append(obj)
+    def addChild(self, object):
+        self.children.append(object)
         
     def descendant(self, label):
         for child in self.children:
@@ -37,6 +37,8 @@ class Node(object):
     def getPolygon(self, index):
         return self.obj.data.polygons[index]
     
+    def getEdges(self):
+        return self.obj.data.edges
         
 ########################################################################
 
@@ -64,7 +66,6 @@ def create3DMass(label, width, depth, height):
     
     return mass
 
-
 '''Utility functions for grid generation:'''
 
 def vert(x, y, sizeRows, sizeColumns):
@@ -77,7 +78,6 @@ def face(x, y, rows):
            (x + 1) * rows + y,
            (x + 1) * rows + 1 + y,
            x * rows + 1 + y)
-
 
 '''Creates virtual shape:'''
 
@@ -121,8 +121,17 @@ def createGrid(label, width, height, rows, columns):
             bpy.ops.view3d.snap_selected_to_cursor(override, use_offset=False)
     
     bpy.data.objects[label].select_set(False)
+    
     return mesh
 
+########################################################################
+
+''' ---------------------- RESETING THE SCENE: ---------------------- '''
+    
+if len(bpy.context.scene.objects) > 0:
+    bpy.ops.object.mode_set(mode = "OBJECT")
+    bpy.ops.object.select_all(action="SELECT")
+    bpy.ops.object.delete()
 
 ########################################################################
 
@@ -134,7 +143,6 @@ label = "building"
 width = 9
 depth = 11
 height = 5
-
 
 '''C2: {<> -> createShape("building", height, width, depth)};'''
 
@@ -171,7 +179,6 @@ bpy.ops.object.mode_set(mode = "EDIT")
 bpy.ops.mesh.select_all(action = "DESELECT")
 bpy.ops.object.mode_set(mode = "OBJECT")
 
-
 '''C3: {<[label=="building_front"]> 
        -> createGrid("facade", 4, 4)};'''
     
@@ -182,7 +189,7 @@ faceWidth = frontFace.getDimX()
 faceHeight = frontFace.getDimZ()
 
 # DEBUG - Printing dimensions:
-print(faceWidth, faceHeight)
+print("FACE DIMENSIONS: ", faceWidth, faceHeight)
 
 # Defining number of rows and columns of the grid:
 rows = 3
@@ -203,6 +210,8 @@ facade = frontFace.descendant(label)
 
 # Always rotate 90 degrees at x-axis:
 bpy.context.object.rotation_euler[0] = 1.5708
+
+# Rotating grid to fit over the face appropriately:
 bpy.context.object.rotation_euler[1] = 1.5708
 
 # If it's 'front' or 'back' face, just update location at y-axis appropriately:
@@ -230,35 +239,20 @@ bpy.context.object.location[1] = (-building.getDimY()) / 2
                      [type=="cell"] 
                      [rowIdx in (3, 4)] 
                      [colIdx in (1, 2)> 
-                     -> pull()};'''
-
-# Experimental selection by face index:
-
-## Changing object mode:
-# bpy.ops.object.mode_set(mode = 'OBJECT')
-
-## Deselect everything:
-# bpy.ops.object.mode_set(mode = 'EDIT')
-# bpy.ops.mesh.select_all(action = 'DESELECT')
-
-# bpy.ops.object.mode_set(mode = 'OBJECT')
-
-## Selecting faces of the object by it's index:
-# bpy.data.objects['facade'].data.polygons[10].select = True
-# bpy.data.objects['facade'].data.polygons[11].select = True
-# bpy.data.objects['facade'].data.polygons[15].select = True
-# bpy.data.objects['facade'].data.polygons[16].select = True
-
-# bpy.ops.object.mode_set(mode = 'EDIT')
+                     -> addVolume("entrance", "building_front", 1, ["ef", "el", "er"])};'''
 
 # Selection by rows and columns indexes:
 
 ## Selection settings:
 rowsIndex = [2, 3]
 columnsIndex = [1, 2]
-label = "facade"
 
-## Finding row and column grid indexes for a specific cell (its polygon index):
+# Shape tree labels:
+facade = "facade"
+parent = "bulding_front"
+label = "region"
+
+## Finding row and column indexes for a specific cell (using its polygon index):
 
 # idxRow = (cellIndex / columns) + 1
 # idxColumn = (cellIndex / rows) + 1
@@ -276,7 +270,7 @@ for rowIndex in rowsIndex:
         selectedCells.append(cellIndex)
 
 # DEBUG: Printing selected indexes:      
-print(selectedCells)
+print("SELECTED CELLS: ", selectedCells)
 
 # Changing object mode:
 bpy.ops.object.mode_set(mode = 'OBJECT')
@@ -288,12 +282,241 @@ bpy.ops.mesh.select_all(action = 'DESELECT')
 bpy.ops.object.mode_set(mode = 'OBJECT')
 
 # Looping through selectedCells in order to select each one:
-for cell in selectedCells:
-    # DEBUG: Printing selected cells:
-    print("Selecting: ", cell)
-    
-    # Setting each cell status to selected:
+for cell in selectedCells:    
+    # Setting each cell select status to True:
     bpy.ops.object.mode_set(mode = 'OBJECT')
-    bpy.data.objects[label].data.polygons[cell].select = True
+    bpy.data.objects[facade].data.polygons[cell].select = True
     bpy.ops.object.mode_set(mode = 'EDIT')
         
+# Changing select mode:
+bpy.ops.mesh.select_mode(type='FACE')
+
+# Separate selected subgrid from 'facade' by creating a new form:
+bpy.ops.mesh.separate(type='SELECTED')
+
+# Storing reference to region (to be used for extrusion from building):
+region = bpy.context.selected_objects[0]
+
+# Changing name attribute to label:
+region.name = label
+
+# Adding 'region' as child of 'building_front': (THE CHILD WILL BE ENTRANCE)
+frontFace.addChild(Node(label, region))
+
+# Changing to object mode:
+bpy.ops.object.mode_set(mode = "OBJECT")
+
+# Moving object's origin to its center:
+bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
+
+# Creating unliked copy to be used as virtual shape of 'entrance':
+bpy.ops.object.duplicate()
+
+# AFTER EXTRUSION CHANGE PARENT TO parentName.001...
+# Renaming virtual shape appropriately:
+entranceGrid = bpy.data.objects[label + ".001"]
+
+# Renaming virtual shape:
+entranceGrid.name = label + "_grid"
+
+# Retrieving 'entrance' node:
+region = frontFace.descendant("region")
+
+# AFTER EXTRUSION CHANGE PARENT TO entrance_front...
+# Adding virtual shape as 'entrance' child:
+region.addChild(Node(entranceGrid.name, entranceGrid))
+
+# Deselecting object:
+bpy.data.objects[entranceGrid.name].select_set(False)
+
+# Selecting object to dissolve internal edges:
+bpy.data.objects[label].select_set(True)
+
+# Changing object mode:
+bpy.ops.object.mode_set(mode = 'OBJECT')
+bpy.ops.object.mode_set(mode = 'EDIT')
+
+# Selecting all the faces:
+bpy.ops.mesh.select_all(action = 'SELECT')
+
+# Changing object mode:
+bpy.ops.object.mode_set(mode = 'OBJECT')
+bpy.ops.object.mode_set(mode = 'EDIT')
+
+# Selecting faces of the object by it's index (unnecessary):
+#bpy.data.objects[label].data.polygons[0].select = True
+#bpy.data.objects[label].data.polygons[1].select = True
+#bpy.data.objects[label].data.polygons[2].select = True
+#bpy.data.objects[label].data.polygons[3].select = True
+
+# Selecting boundary edges:
+bpy.ops.mesh.region_to_loop()
+
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Creating list with all of the object indexes:
+ids = list(range(len(region.getEdges())))
+
+# DEBUG: Printing all of the edges indexes:
+print("ALL EDGES INDEXES: ", ids)
+
+# Storing just the selected indexes:
+selectedEdges = [e.index for e in region.getEdges() if e.select]
+
+# DEBUG: Printing border indexes:
+print("BORDER EDGES INDEXES: ", selectedEdges)
+
+# Removing border indexes, so the remaining will be internal:
+for e in selectedEdges:
+    ids.remove(e)
+    
+# DEBUG: Printing internal indexes:
+print("INTERNAL EDGES INDEXES: ", ids)
+
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Selecting internal edges by index:
+for id in ids:
+    bpy.data.objects[label].data.edges[id].select = True
+    
+bpy.ops.object.mode_set(mode = 'EDIT')
+
+# Dissolving internal edges:
+bpy.ops.mesh.dissolve_edges()
+
+# Deselecting object:
+bpy.data.objects[label].select_set(False)
+
+# DEBUG: building_front number of children:
+print("BUILDING_FRONT CHILDREN: ", len(frontFace.children))
+
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Selecting objects to be joined:
+bpy.data.objects["region"].select_set(True)
+
+bpy.context.view_layer.objects.active = bpy.data.objects["building"]
+bpy.data.objects["building"].select_set(True)
+
+# Joining selected objects ('entrance' will be merged into 'building'):
+bpy.ops.object.join()
+
+# Changing object mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+
+# Selecting last object face by its index:
+regionIdx = len(building.obj.data.polygons)-1
+
+print("REGION INDEX: ", regionIdx)
+
+bpy.ops.mesh.select_all(action = 'DESELECT')
+
+# Reselect specific face:
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Selecting faces of the object by it's index:
+bpy.data.objects["building"].data.polygons[regionIdx].select = True
+
+# Extrusion setting (h = height):
+extrusionHeight = 2
+
+# Changing object mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+
+# Applying extrusion:
+
+## Invert value for 'front' and 'left' face extrusion:
+bpy.ops.mesh.extrude_region_move(
+    TRANSFORM_OT_translate={"value":(0, -extrusionHeight, 0)}
+)
+
+# TO-DO: ORGANIZE SHAPE TREE WITH NEW NODES...
+
+'''C4: {<descendant()[label=="entrance"] / [label=="ef"]> 
+       -> roundShape("front", 1.0, "vertical")};'''
+       
+## Settings: offset = degree of rounding | segments = degree of 'realism'
+roundingDegree = 0.365 # vertical
+# roundingDegree = 0.365*1.7 # horizontal
+numberSegments = 30
+
+# Changing object mode:       
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Entering edges indexes (just for testing):
+# e1 = int(input("Enter first edge: "))
+# e2 = int(input("Enter second edge: "))
+
+# Selecting left and right edges from the face (round front - vertical):
+## STILL HARDCODED... left = 17 and right = 19
+bpy.data.objects["building"].data.edges[17].select = True
+bpy.data.objects["building"].data.edges[19].select = True
+
+# Changing object mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+
+# Applying (front - vertical) deformation itself:
+bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=numberSegments, vertex_only=False)
+
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# OR
+
+# Selecting top and bottom edges from the face (round front - horizontal):
+## TO-DO
+
+# Changing object mode:
+# bpy.ops.object.mode_set(mode = 'EDIT')
+
+# Applying (front - horizontal) deformation itself:
+# bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=numberSegments, vertex_only=False)
+
+# OR
+
+# Selecting left edge from the face (round left):
+## TO-DO
+
+# Changing object mode:
+# bpy.ops.object.mode_set(mode = 'EDIT')
+
+# Applying (left) deformation itself:
+# bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=numberSegments, vertex_only=False)
+
+# OR
+
+# Selecting right edge from the face (round right):
+## TO-DO
+
+# Changing object mode:
+# bpy.ops.object.mode_set(mode = 'EDIT')
+
+# Applying (right) deformation itself:
+# bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=numberSegments, vertex_only=False)
+
+# OR
+
+# Selecting top edge from the face (round top):
+## TO-DO
+
+# Changing object mode:
+# bpy.ops.object.mode_set(mode = 'EDIT')
+
+# Applying (top) deformation itself:
+# bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=numberSegments, vertex_only=False)
+
+# OR
+
+# Selecting bottom edge from the face (round bottom):
+## TO-DO
+
+# Changing object mode:
+# bpy.ops.object.mode_set(mode = 'EDIT')
+
+# Applying (bottom) deformation itself:
+# bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=numberSegments, vertex_only=False)

@@ -6,10 +6,10 @@ facade = 'Facade'
 mass_height = 1
 mass_width = 2
 
-# real number floors = value - 1 -> In this case: floors = 2
+# Real number floors = value - 1 -> In this case: floors = 2
 floors = 3
 
-# real number of columns = value -1 -> In this case: columns = 4
+# Real number of columns = value -1 -> In this case: columns = 4
 columns = 4
 
 # Calculating size of the cells:
@@ -63,7 +63,7 @@ bpy.context.object.rotation_euler[0] = 1.5708 # x-axis rotation (90)
 bpy.context.object.rotation_euler[2] = 1.5708 # z-axis rotation (90)
 
 '''
-# Improve index positioning, but invert number of columns with number of floors for M x N grids:
+# Improves index positioning, but inverts number of columns with number of floors for M x N grids:
 
 Generated    Rotated
  [1] [3]     [0] [1]
@@ -71,5 +71,6 @@ Generated    Rotated
 
 # bpy.context.object.rotation_euler[1] = 1.5708 # y-axis rotation (90)
 '''
+
 # Translate on x-axis to proper position:
 bpy.context.object.location[0] = 1

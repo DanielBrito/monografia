@@ -44,7 +44,7 @@ bpy.ops.mesh.select_all(action = 'DESELECT')
 # Reselect specific face:
 bpy.ops.object.mode_set(mode = 'OBJECT')
 
-# Selecting faces of the object by it's index:
+# Selecting faces of the object by its index:
 bpy.data.objects['Facade'].data.polygons[0].select = True
 bpy.data.objects['Facade'].data.polygons[1].select = True
 bpy.data.objects['Facade'].data.polygons[5].select = True
