@@ -440,6 +440,10 @@ if len(bpy.context.scene.objects) > 0:
 
 ''' ------------------ SIMULATING SELEX RULES: ------------------ '''
 
+# Creating and defining shape tree root node:
+root = Node("root", None)
+
+
 '''C1: Initial settings:'''
 
 label = "building"
@@ -448,18 +452,15 @@ depth = 11
 height = 5
 
 
-'''C2: {<> -> createShape("building", height, width, depth)};'''
+'''C2: {<> -> createShape("building", 5, 9, 11)};'''
 
 mass3D = create3DMass(label, width, depth, height)
-
-# Defining shape tree root node:
-root = Node("root", None)
 
 # Adding building mass node:
 root.addChild(Node(label, mass3D, width, depth, height))
 
 # Retrieving root node descendant by label:
-building = root.descendant("building")
+building = root.descendant(label) # HARDCODED (GENERALIZE VARIABLE 'building') 
 
 # Configuring object mode:
 bpy.ops.object.mode_set(mode = "EDIT")
@@ -472,7 +473,7 @@ left = Node(building.label + "_" + "left", building.getPolygon(0), building.getD
 right = Node(building.label + "_" + "right", building.getPolygon(2), building.getDimY(), 0, building.getDimZ())
 back = Node(building.label + "_" + "back", building.getPolygon(1), building.getDimX(), 0, building.getDimZ())
 
-# Adding front, back, left and right faces as children:
+# Adding front, back, left and right faces as children of 'building':
 building.addChild(front)
 building.addChild(left)
 building.addChild(right)
@@ -484,68 +485,76 @@ bpy.ops.mesh.select_all(action = "DESELECT")
 bpy.ops.object.mode_set(mode = "OBJECT")
 
 
-'''C3: {<[label=="building_front"]> 
-       -> createGrid("facade", 3, 5)};'''
-    
-frontFace = building.descendant("building_front")
+# VARIABLES, SELECTION AND RENAMING OF MULTIPLE ELEMENTS STILL HARDCODED:
+'''C3: {<descendant()[label=="building"] / 
+                     [label=="building_front"]> 
+                     -> createGrid(label, rows, columns)};'''
+
+# Retrieving child labeled as 'building' from 'root':
+building = root.descendant(label) # HARDCODED (GENERALIZE VARIABLE 'building')
+
+buildingChildLabel = "building_front" # HARDCODED (GENERALIZE VARIABLE 'buildingChildLabel' + GET 'label' FROM RULE)
+
+# Retrieving child labeled as 'building_front' from 'building':
+frontFace = building.descendant(buildingChildLabel) # HARDCODED (GENERALIZE 'frontFace')
 
 # Retrieving face dimensions:
-faceWidth = frontFace.getDimX()
-faceHeight = frontFace.getDimZ()
+faceWidth = frontFace.getDimX() # HARDCODED (FROM 'frontFace')
+faceHeight = frontFace.getDimZ() # HARDCODED (FROM 'frontFace')
 
 # DEBUG - Printing dimensions:
 print("FACE DIMENSIONS: ", faceWidth, faceHeight)
 
 # Defining number of rows and columns of the grid:
+label = "facade"
 rows = 3
 columns = 5
-
-label = "facade"
 
 # Using face dimensions to generate grid:
 virtualShape = createGrid(label, int(faceWidth), int(faceHeight), rows, columns)
 
 # Adding virtual shape as child of building_front:
-frontFace.addChild(Node(label, virtualShape))
+frontFace.addChild(Node(label, virtualShape)) # HARDCODED (CHANGE 'frontFace' FOR GENERALIZED VARIABLE)
 
 # Retriving object from shape tree:
-facade = frontFace.descendant(label)
+facade = frontFace.descendant(label) # HARDCODED (GENERALIZE 'facade' + CHANGE 'frontFace' FOR GENERALIZED VARIABLE)
 
-# Positioning virtual shape over appropriate face:
+# Positioning virtual shape over appropriate face, in this case 'front': HARDCODED (MAKE TRANSFORMATIONS DEPENDING ON SELECTED FACE)
 
 # Always rotate 90 degrees at x-axis:
 bpy.context.object.rotation_euler[0] = 1.5708
 
-# Rotating grid to fit over the face appropriately:
-bpy.context.object.rotation_euler[1] = 1.5708
+# Rotating grid at y-axis to fit over the face appropriately:
+bpy.context.object.rotation_euler[1] = 1.5708 # HARDCODED
 
 # If it's 'front' or 'back' face, just update location at y-axis appropriately:
 
 ## Inverting the sign is needed for 'front' location:
-bpy.context.object.location[1] = (-building.getDimY()) / 2
+bpy.context.object.location[1] = (-building.getDimY()) / 2 # HARDCODE
 
 ## For 'back' location:
-# bpy.context.object.location[1] = building.getDimY() / 2
+# bpy.context.object.location[1] = building.getDimY() / 2 # HARDCODED
 
 # If it's 'left' or 'right' face:
 
 ## Perform a rotation by 90 degrees at z-axis:
-# bpy.context.object.rotation_euler[2] = 1.5708
+# bpy.context.object.rotation_euler[2] = 1.5708 # HARDCODED
 
 ## Inverting the sign is needed for 'left' location:
-# bpy.context.object.location[0] = (-building.getDimX()) / 2
+# bpy.context.object.location[0] = (-building.getDimX()) / 2 # HARDCODED
 
 ## For 'right' location:
-# bpy.context.object.location[0] = building.getDimX() / 2
+# bpy.context.object.location[0] = building.getDimX() / 2 # HARDCODED
 
 
+# VARIABLES, SELECTION AND RENAMING OF MULTIPLE ELEMENTS STILL HARDCODED:
 '''C4: {<descendant()[label=="building"] / 
                      [label=="building_front"] / 
                      [label=="facade"] / 
                      [type=="cell"] 
                      [rowIdx in (2, 3)] 
                      [colIdx in (1, 2)> 
-                     -> addVolume("entrance", "building_front", 1, ["ef", "el", "er"])};'''
+                     -> addVolume("entrance", "building_front", 2.5, ["entrance_front", "entrance_left", "entrance_right"])};'''
 
 # Selection by rows and columns indexes:
 
@@ -553,10 +562,13 @@ bpy.context.object.location[1] = (-building.getDimY()) / 2
 rowsIndex = [2, 3]
 columnsIndex = [1, 2]
 
+# Extrusion setting:
+extrusionHeight = 2.5
+
 # Shape tree labels:
-facade = "facade"
-parent = "bulding_front"
-label = "region"
+facade = "facade" # HARDCODED (GENERALIZE 'facade' + GET FROM RULE)
+parent = "bulding_front" # HARDCODED (GET PARENT 'label' FROM RULE)
+label = "entrance" # HARDCODED (GET 'label' FROM RULE)
 
 ## Finding row and column indexes for a specific cell (using its polygon index):
 
@@ -591,7 +603,7 @@ bpy.ops.object.mode_set(mode = 'OBJECT')
 for cell in selectedCells:    
     # Setting each cell select status to True:
     bpy.ops.object.mode_set(mode = 'OBJECT')
-    bpy.data.objects[facade].data.polygons[cell].select = True
+    bpy.data.objects[facade].data.polygons[cell].select = True # HARDCODED (CHANGE FOR GENERALIZED VARIABLE OF 'facade')
     bpy.ops.object.mode_set(mode = 'EDIT')
         
 # Changing select mode:
@@ -601,13 +613,13 @@ bpy.ops.mesh.select_mode(type='FACE')
 bpy.ops.mesh.separate(type='SELECTED')
 
 # Storing reference to region (to be used for extrusion from building):
-region = bpy.context.selected_objects[0]
+entrance = bpy.context.selected_objects[0] # HARDCODE (GENERALIZE VARIABLE 'entrance')
 
 # Changing name attribute to label:
-region.name = label
+entrance.name = label # HARDCODED (USE GENERALIZED VARIABLE 'entrance')
 
-# Adding 'region' as child of 'building_front': (THE CHILD WILL BE ENTRANCE)
-frontFace.addChild(Node(label, region))
+# Adding 'entrance' as child of 'building_front':
+frontFace.addChild(Node(label, entrance)) # HARDCODED
 
 # Changing to object mode:
 bpy.ops.object.mode_set(mode = "OBJECT")
@@ -618,22 +630,25 @@ bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
 # Creating unliked copy to be used as virtual shape of 'entrance':
 bpy.ops.object.duplicate()
 
+
+''' HARDCODED (FIX SHAPE TREE - BEGIN) '''
 # AFTER EXTRUSION CHANGE PARENT TO parentName.001...
 # Renaming virtual shape appropriately:
-entranceGrid = bpy.data.objects[label + ".001"]
+entranceGrid = bpy.data.objects[label + ".001"] # HARDCODED (GENERALIZE VARIABLE 'entranceGrid')
 
 # Renaming virtual shape:
-entranceGrid.name = label + "_grid"
+entranceGrid.name = label + "_grid" # HARDCODED (CHANGE FOR GENERALIZED VARIABLE)
 
 # Retrieving 'entrance' node:
-region = frontFace.descendant("region")
+entrance = frontFace.descendant(label) # HARDCODED (GENERALIZE VARIABLE 'entrance' + CHANGE 'frontFrace' FOR GENERALIZED VARIABLE)
 
 # AFTER EXTRUSION CHANGE PARENT TO entrance_front...
 # Adding virtual shape as 'entrance' child:
-region.addChild(Node(entranceGrid.name, entranceGrid))
+#entrance.addChild(Node(entranceGrid.name, entranceGrid))
 
 # Deselecting object:
 bpy.data.objects[entranceGrid.name].select_set(False)
+''' HARDCODED (FIX SHAPE TREE - END) '''
 
 # Selecting object to dissolve internal edges:
 bpy.data.objects[label].select_set(True)
@@ -649,25 +664,19 @@ bpy.ops.mesh.select_all(action = 'SELECT')
 bpy.ops.object.mode_set(mode = 'OBJECT')
 bpy.ops.object.mode_set(mode = 'EDIT')
 
-# Selecting faces of the object by it's index (unnecessary):
-#bpy.data.objects[label].data.polygons[0].select = True
-#bpy.data.objects[label].data.polygons[1].select = True
-#bpy.data.objects[label].data.polygons[2].select = True
-#bpy.data.objects[label].data.polygons[3].select = True
-
 # Selecting boundary edges:
 bpy.ops.mesh.region_to_loop()
 
 bpy.ops.object.mode_set(mode = 'OBJECT')
 
 # Creating list with all of the object indexes:
-ids = list(range(len(region.getEdges())))
+ids = list(range(len(entrance.getEdges())))
 
 # DEBUG: Printing all of the edges indexes:
 print("ALL EDGES INDEXES: ", ids)
 
 # Storing just the selected indexes:
-selectedEdges = [e.index for e in region.getEdges() if e.select]
+selectedEdges = [e.index for e in entrance.getEdges() if e.select]
 
 # DEBUG: Printing border indexes:
 print("BORDER EDGES INDEXES: ", selectedEdges)
@@ -697,15 +706,15 @@ bpy.ops.mesh.dissolve_edges()
 bpy.data.objects[label].select_set(False)
 
 # DEBUG: building_front number of children:
-print("BUILDING_FRONT CHILDREN: ", len(frontFace.children))
+# print("BUILDING_FRONT CHILDREN: ", len(frontFace.children))
 
 bpy.ops.object.mode_set(mode = 'OBJECT')
 
 # Selecting objects to be joined:
-bpy.data.objects["region"].select_set(True)
+bpy.data.objects["entrance"].select_set(True) # HARDCODED (GET FROM RULE)
 
-bpy.context.view_layer.objects.active = bpy.data.objects["building"]
-bpy.data.objects["building"].select_set(True)
+bpy.context.view_layer.objects.active = bpy.data.objects["building"] # HARDCODED (GET FROM RULE)
+bpy.data.objects["building"].select_set(True) # HARDCODED (GET FROM RULE)
 
 # Joining selected objects ('entrance' will be merged into 'building'):
 bpy.ops.object.join()
@@ -714,7 +723,7 @@ bpy.ops.object.join()
 bpy.ops.object.mode_set(mode = 'EDIT')
 
 # Selecting last object face by its index:
-regionIdx = len(building.obj.data.polygons)-1
+regionIdx = len(building.obj.data.polygons)-1 # HARDCODED
 
 print("REGION INDEX: ", regionIdx)
 
@@ -724,10 +733,7 @@ bpy.ops.mesh.select_all(action = 'DESELECT')
 bpy.ops.object.mode_set(mode = 'OBJECT')
 
 # Selecting faces of the object by it's index:
-bpy.data.objects["building"].data.polygons[regionIdx].select = True
-
-# Extrusion setting (h = height):
-extrusionHeight = 2.5
+bpy.data.objects["building"].data.polygons[regionIdx].select = True # HARDCODED
 
 # Changing object mode:
 bpy.ops.object.mode_set(mode = 'EDIT')
@@ -735,14 +741,24 @@ bpy.ops.mesh.select_mode(type = 'FACE')
 
 # Applying extrusion:
 
-## Invert value for 'front' and 'left' face extrusion:
+## Invert value sinal (negative) for 'front' and 'left' face extrusaaion:
 bpy.ops.mesh.extrude_region_move(
-    TRANSFORM_OT_translate={"value":(0, -extrusionHeight, 0)}
+    TRANSFORM_OT_translate={"value":(0, -extrusionHeight, 0)} # HARDCODED (FOR 'front' AND 'left' EXTRUSION)
 )
 
+## 'right' and 'back' face extrusion:
+# bpy.ops.mesh.extrude_region_move(
+#     TRANSFORM_OT_translate={"value":(0, extrusionHeight, 0)} # HARDCODED (FOR 'right' AND 'back' EXTRUSION)
+# )
 
-#                 TO-DO: ORGANIZE SHAPE TREE WITH NEW NODES HERE...
+## Retrieving generates faces after extrusion (entrance_front, entrance_left, entrance_right):
+# TO-DO
 
+## Moving 'entrance_grid' over 'entrance_front'
+# TO-DO
+
+# ORGANIZE SHAPE TREE WITH NEW NODES HERE
+# TO-DO
 
 '''C4: {<descendant()[label=="entrance"] / [label=="ef"]> 
        -> roundShape("front", 1.0, 30, "vertical")};'''
@@ -757,7 +773,8 @@ bpy.ops.mesh.select_all(action = 'DESELECT')
 bpy.ops.object.mode_set(mode = 'OBJECT')
 
 # Storing selected face of the object (label = ef):
-entranceFront = bpy.data.objects["building"].data.polygons[regionIdx+1]
+# TO-DO: SELECT USING PROPER FUNCTION THROUGH SHAPE TREE:
+entranceFront = bpy.data.objects["building"].data.polygons[regionIdx+1] # HARDCODED (GENERALIZE VARIABLE 'entranceFront')
 
 # Calling deformation function:
 
