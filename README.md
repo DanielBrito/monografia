@@ -28,12 +28,18 @@ Modeling virtual environments is an arduous task, and may require great time and
 
 ---
 
-#### Código-fonte
+### Código-fonte
 
-Para ler o documento a partir do código-fonte (.tex) é só importar o *.zip* da pasta *TCC - Daniel Brito* no [Overleaf](https://www.overleaf.com/).
+Para ler o documento a partir do código-fonte (.tex) é só importar o _.zip_ da pasta _TCC - Daniel Brito_ no [Overleaf](https://www.overleaf.com/).
 
 ---
 
-#### Apresentação
+### Apresentação
 
 O arquivo da apresentação do TCC I pode ser encontrado [aqui](https://github.com/DanielBrito/monografia/blob/main/Apresenta%C3%A7%C3%A3o%20-%20TCC%20I.pdf).
+
+### Prévia
+
+Execução de script experimental:
+
+![ExecuçãoScriptExperimental](preview.gif)
