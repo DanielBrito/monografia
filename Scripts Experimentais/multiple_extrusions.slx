@@ -1,0 +1,29 @@
+# C1: Initial settings
+label = "building"; width = 9; depth = 11; height = 5;
+
+# C2: Generating mass model
+{<> -> createShape("building", 5, 9, 11)};
+
+# C3: Adding virtual shape to the mass model's front face, e.g. containing 3 rows and 4 columns
+{< descendant() [label=="building"] / [label=="building_front"] > -> createGrid(main_grid_front, 3, 4)};
+
+# C4: Adding virtual shape to the mass model's back face, e.g. containing 5 rows and 4 columns
+{< descendant() [label=="building"] / [label=="building_back"] > -> createGrid(main_grid_back, 5, 4)};
+
+# C5: Adding virtual shape to the mass model's left face, e.g. containing 2 rows and 5 columns
+{< descendant() [label=="building"] / [label=="building_left"] > -> createGrid(main_grid_left, 2, 5)};
+
+# C6: Adding virtual shape to the mass model's right face, e.g. containing 3 rows and 3 columns
+{< descendant() [label=="building"] / [label=="building_right"] > -> createGrid(main_grid_right, 3, 3)};
+
+# C7: Selecting region and performing extrusion
+{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_grid_front"] / [type=="cell"] [rowIdx in (2, 3)] [colIdx in (1, 2)] [::groupRegions()] > -> addVolume("entrance", "building_front", 2.5, ["entrance_front", "entrance_left", "entrance_right"])};
+
+# C8: Selecting region and performing extrusion
+{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_grid_right"] / [type=="cell"] [rowIdx in (2, 3)] [colIdx in (1, 2)] [::groupRegions()] > -> addVolume("garden", "building_right", 2.5, ["garden_front", "garden_left", "garden_right"])};
+
+# C9: Selecting region and performing extrusion
+{< descendant() [label=="building"] / [label=="building_back"] / [label=="main_grid_back"] / [type=="cell"] [rowIdx in (3, 4, 5)] [colIdx in (1, 2, 3)] [::groupRegions()] > -> addVolume("backyard", "building_back", 5, ["backyard_front", "backyard_left", "backyard_right"])};
+
+# C10: Selecting region and performing extrusion
+{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_grid_left"] / [type=="cell"] [rowIdx in (2)] [colIdx in (1, 2, 3)] [::groupRegions()] > -> addVolume("reception", "building_left", 3.5, ["reception_front", "reception_left", "reception_right"])};

@@ -1,0 +1,17 @@
+# C1: Initial settings
+label = "building"; width = 9; depth = 11; height = 5;
+
+# C2: Generating mass model
+{<> -> createShape("building", 5, 9, 11)};
+
+# C3: Adding virtual shape to the mass model's front face, e.g. containing 3 rows and 6 columns
+{< descendant() [label=="building"] / [label=="building_front"] > -> createGrid(main_grid_front, 3, 6)};
+
+# C4: Selecting region and performing extrusion
+{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_grid_front"] / [type=="cell"] [rowIdx in (3)] [colIdx in (1, 2)] [::groupRegions()] > -> addVolume("entrance_sm", "building_front", 1, ["entrance_sm_front", "entrance_sm_left", "entrance_sm_right"])};
+
+# C5: Selecting region and performing extrusion
+{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_grid_front"] / [type=="cell"] [rowIdx in (2, 3)] [colIdx in (3, 4)] [::groupRegions()] > -> addVolume("entrance_md", "building_front", 2, ["entrance_md_front", "entrance_md_left", "entrance_md_right"])};
+
+# C6: Selecting region and performing extrusion
+{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_grid_front"] / [type=="cell"] [rowIdx in (1, 2, 3)] [colIdx in (5, 6)] [::groupRegions()] > -> addVolume("entrance_lg", "building_front", 5, ["entrance_lg_front", "entrance_lg_left", "entrance_lg_right"])};
