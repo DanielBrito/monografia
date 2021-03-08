@@ -2248,4 +2248,1162 @@ region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
 # Applying deformation:
 roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, insideDegree)
 
+
+# -------------------------------------------------------------------------------
+# ROUND BACK
+# -------------------------------------------------------------------------------
+
+# TESTING 1 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_back", "main_grid_back"]
+rowsIndex = [1, 2, 3]
+columnsIndex = [1]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "backyard_1"
+parent = gridCopyNode.getParent()
+extrusionSize = 3
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_back"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_back", "backyard_1", "backyard_1_front"]
+roundingDegree = 0.16 # (width / num_columns) / num_columns
+numberSegments = 30
+deformationType = "left" # front | left | right | bottom | top
+deformationAxis = "vertical" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = roundingDegree/2
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, insideDegree)
+
+# -------------------------------------------------------------------------------
+
+# TESTING 2 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_back", "main_grid_back"]
+rowsIndex = [1]
+columnsIndex = [2]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "backyard_2_1"
+parent = gridCopyNode.getParent()
+extrusionSize = 1
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_back"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_back", "backyard_2_1", "backyard_2_1_front"]
+roundingDegree = 0.2
+numberSegments = 30
+deformationType = "bottom" # front | left | right | bottom | top
+deformationAxis = "horizontal" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = 0.1
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, roundingDegree)
+
+# -------------------------------------------------------------------------------
+
+# TESTING 2.1 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_back", "main_grid_back"]
+rowsIndex = [2]
+columnsIndex = [2]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "backyard_2_2"
+parent = gridCopyNode.getParent()
+extrusionSize = 1
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_back"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_back", "backyard_2_2", "backyard_2_2_front"]
+roundingDegree = 0.3
+numberSegments = 30
+deformationType = "front" # front | left | right | bottom | top
+deformationAxis = "horizontal" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = 0.1
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, insideDegree)
+
+# -------------------------------------------------------------------------------
+
+# TESTING 2.2 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_back", "main_grid_back"]
+rowsIndex = [3]
+columnsIndex = [2]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "backyard_2_3"
+parent = gridCopyNode.getParent()
+extrusionSize = 1
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_back"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_back", "backyard_2_3", "backyard_2_3_front"]
+roundingDegree = 0.2
+numberSegments = 30
+deformationType = "top" # front | left | right | bottom | top
+deformationAxis = "horizontal" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = 0.1
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, insideDegree)
+
+# -------------------------------------------------------------------------------
+
+# TESTING 3 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_back", "main_grid_back"]
+rowsIndex = [1, 2, 3]
+columnsIndex = [3]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "backyard_3"
+parent = gridCopyNode.getParent()
+extrusionSize = 2
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_back"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_back", "backyard_3", "backyard_3_front"]
+roundingDegree = 0.16 # (width / num_columns) / num_columns
+numberSegments = 30
+deformationType = "left" # front | left | right | bottom | top
+deformationAxis = "vertical" # frontal deformation: vertical | horizontal
+direction = "outside"
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis)
+
+
+# TESTING 4 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_back", "main_grid_back"]
+rowsIndex = [3]
+columnsIndex = [4, 5, 6]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "backyard_4"
+parent = gridCopyNode.getParent()
+extrusionSize = 5
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_back"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_back", "backyard_4", "backyard_4_"]
+roundingDegree = 0.4
+numberSegments = 30
+deformationType = "front" # front | left | right | bottom | top
+deformationAxis = "vertical" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = 0.1
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, insideDegree)
+
+# -------------------------------------------------------------------------------
+
+# TESTING 5 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_back", "main_grid_back"]
+rowsIndex = [1, 2]
+columnsIndex = [4, 5, 6]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "backyard_top"
+parent = gridCopyNode.getParent()
+extrusionSize = 2
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_back"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_back", "backyard_top", "backyard_top_front"]
+roundingDegree = 0.48
+numberSegments = 30
+deformationType = "right" # front | left | right | bottom | top
+deformationAxis = "vertical" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = 0.1
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, insideDegree)
+
+
+# -------------------------------------------------------------------------------
+# ROUND LEFT
+# -------------------------------------------------------------------------------
+
+# TESTING 1 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_left", "main_grid_left"]
+rowsIndex = [1, 2, 3]
+columnsIndex = [1]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "reception_1"
+parent = gridCopyNode.getParent()
+extrusionSize = 3
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_left"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_left", "reception_1", "reception_1_front"]
+roundingDegree = 0.16 # (width / num_columns) / num_columns
+numberSegments = 30
+deformationType = "left" # front | left | right | bottom | top
+deformationAxis = "vertical" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = roundingDegree/2
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, insideDegree)
+
+# -------------------------------------------------------------------------------
+
+# TESTING 2 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_left", "main_grid_left"]
+rowsIndex = [1]
+columnsIndex = [2]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "reception_2_1"
+parent = gridCopyNode.getParent()
+extrusionSize = 1
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_back"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_left", "reception_2_1", "reception_2_1_front"]
+roundingDegree = 0.2
+numberSegments = 30
+deformationType = "bottom" # front | left | right | bottom | top
+deformationAxis = "horizontal" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = 0.1
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, roundingDegree)
+
+# -------------------------------------------------------------------------------
+
+# TESTING 2.1 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_left", "main_grid_left"]
+rowsIndex = [2]
+columnsIndex = [2]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "reception_2_2"
+parent = gridCopyNode.getParent()
+extrusionSize = 1
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_left"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_left", "reception_2_2", "reception_2_2_front"]
+roundingDegree = 0.3
+numberSegments = 30
+deformationType = "front" # front | left | right | bottom | top
+deformationAxis = "horizontal" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = 0.1
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, insideDegree)
+
+# -------------------------------------------------------------------------------
+
+# TESTING 2.2 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_left", "main_grid_left"]
+rowsIndex = [3]
+columnsIndex = [2]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "reception_2_3"
+parent = gridCopyNode.getParent()
+extrusionSize = 1
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_left"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_left", "reception_2_3", "reception_2_3_front"]
+roundingDegree = 0.2
+numberSegments = 30
+deformationType = "top" # front | left | right | bottom | top
+deformationAxis = "horizontal" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = 0.1
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, insideDegree)
+
+# -------------------------------------------------------------------------------
+
+# TESTING 3 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_left", "main_grid_left"]
+rowsIndex = [1, 2, 3]
+columnsIndex = [3]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "reception_3"
+parent = gridCopyNode.getParent()
+extrusionSize = 2
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_left"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_left", "reception_3", "reception_3_front"]
+roundingDegree = 0.16 # (width / num_columns) / num_columns
+numberSegments = 30
+deformationType = "left" # front | left | right | bottom | top
+deformationAxis = "vertical" # frontal deformation: vertical | horizontal
+direction = "outside"
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis)
+
+
+# TESTING 4 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_left", "main_grid_left"]
+rowsIndex = [3]
+columnsIndex = [4, 5, 6]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "reception_4"
+parent = gridCopyNode.getParent()
+extrusionSize = 5
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_left"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_left", "reception_4", "reception_4_"]
+roundingDegree = 0.4
+numberSegments = 30
+deformationType = "front" # front | left | right | bottom | top
+deformationAxis = "vertical" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = 0.1
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, insideDegree)
+
+# -------------------------------------------------------------------------------
+
+# TESTING 5 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_left", "main_grid_left"]
+rowsIndex = [1, 2]
+columnsIndex = [4, 5, 6]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "reception_top"
+parent = gridCopyNode.getParent()
+extrusionSize = 2
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_left"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_left", "reception_top", "reception_top_front"]
+roundingDegree = 0.48
+numberSegments = 30
+deformationType = "right" # front | left | right | bottom | top
+deformationAxis = "vertical" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = 0.1
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, insideDegree)
+
+
+# -------------------------------------------------------------------------------
+# ROUND RIGHT
+# -------------------------------------------------------------------------------
+
+# TESTING 1 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_right", "main_grid_right"]
+rowsIndex = [1, 2, 3]
+columnsIndex = [1]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "garden_1"
+parent = gridCopyNode.getParent()
+extrusionSize = 3
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_right"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_right", "garden_1", "garden_1_front"]
+roundingDegree = 0.16 # (width / num_columns) / num_columns
+numberSegments = 30
+deformationType = "left" # front | left | right | bottom | top
+deformationAxis = "vertical" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = roundingDegree/2
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, insideDegree)
+
+# -------------------------------------------------------------------------------
+
+# TESTING 2 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_right", "main_grid_right"]
+rowsIndex = [1]
+columnsIndex = [2]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "garden_2_1"
+parent = gridCopyNode.getParent()
+extrusionSize = 1
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_right"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_right", "garden_2_1", "garden_2_1_front"]
+roundingDegree = 0.2
+numberSegments = 30
+deformationType = "bottom" # front | left | right | bottom | top
+deformationAxis = "horizontal" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = 0.1
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, roundingDegree)
+
+# -------------------------------------------------------------------------------
+
+# TESTING 2.1 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_right", "main_grid_right"]
+rowsIndex = [2]
+columnsIndex = [2]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "garden_2_2"
+parent = gridCopyNode.getParent()
+extrusionSize = 1
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_right"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_right", "garden_2_2", "garden_2_2_front"]
+roundingDegree = 0.3
+numberSegments = 30
+deformationType = "front" # front | left | right | bottom | top
+deformationAxis = "horizontal" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = 0.1
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, insideDegree)
+
+# -------------------------------------------------------------------------------
+
+# TESTING 2.2 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_right", "main_grid_right"]
+rowsIndex = [3]
+columnsIndex = [2]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "garden_2_3"
+parent = gridCopyNode.getParent()
+extrusionSize = 1
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_right"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_right", "garden_2_3", "garden_2_3_front"]
+roundingDegree = 0.2
+numberSegments = 30
+deformationType = "top" # front | left | right | bottom | top
+deformationAxis = "horizontal" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = 0.1
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, insideDegree)
+
+# -------------------------------------------------------------------------------
+
+# TESTING 3 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_right", "main_grid_right"]
+rowsIndex = [1, 2, 3]
+columnsIndex = [3]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "garden_3"
+parent = gridCopyNode.getParent()
+extrusionSize = 2
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_right"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_right", "garden_3", "garden_3_front"]
+roundingDegree = 0.16 # (width / num_columns) / num_columns
+numberSegments = 30
+deformationType = "left" # front | left | right | bottom | top
+deformationAxis = "vertical" # frontal deformation: vertical | horizontal
+direction = "outside"
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis)
+
+
+# TESTING 4 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_right", "main_grid_right"]
+rowsIndex = [3]
+columnsIndex = [4, 5, 6]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "garden_4"
+parent = gridCopyNode.getParent()
+extrusionSize = 5
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_right"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_right", "garden_4", "garden_4_"]
+roundingDegree = 0.4
+numberSegments = 30
+deformationType = "front" # front | left | right | bottom | top
+deformationAxis = "vertical" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = 0.1
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, insideDegree)
+
+# -------------------------------------------------------------------------------
+
+# TESTING 5 -> Simulating data for labels and rows/columns indexes:
+labels = ["building", "building_right", "main_grid_right"]
+rowsIndex = [1, 2]
+columnsIndex = [4, 5, 6]
+
+## Passing labels to function responsible for selecting the object from shape tree:
+grid = selectNode(root, labels)
+
+gridCopy = duplicateShape(grid.getLabel())
+
+gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+
+# DEBUG - Printing grid label and number of rows and columns
+## print("GRID - ROWS x COLUMNS: ", grid.getLabel(), grid.getRows(), grid.getColumns())
+
+## Selecting cells from the grid:
+selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rowsIndex, columnsIndex)
+
+# TESTING -> Simulating data for label, parent, extrusion size and volume side's labels:
+label = "garden_top"
+parent = gridCopyNode.getParent()
+extrusionSize = 2
+sidesLabels = [label + "_front", label + "_left", label + "_right"]
+sideReference = "main_right"
+
+# Extra parameter for selecting objects properly:
+gridLabel = gridCopyNode.getLabel()
+
+## Adding volume to the mass model and retrieving face index to apply deformation:
+regionIndex = addVolume(label, parent, extrusionSize, sidesLabels, gridLabel)
+
+       
+# TESTING -> Simulating data for labels, degree, segments, type and axis:
+labels = ["building", "building_right", "garden_top", "garden_top_front"]
+roundingDegree = 0.48
+numberSegments = 30
+deformationType = "right" # front | left | right | bottom | top
+deformationAxis = "vertical" # frontal deformation: vertical | horizontal
+direction = "inside"
+insideDegree = 0.1
+
+# Changing select mode:
+bpy.ops.object.mode_set(mode = 'EDIT')
+bpy.ops.mesh.select_mode(type = 'FACE')
+bpy.ops.mesh.select_all(action = 'DESELECT')
+bpy.ops.object.mode_set(mode = 'OBJECT')
+
+# Retrieving model mass region to apply the deformation:
+region = bpy.data.objects[labels[0]].data.polygons[regionIndex]
+
+# Applying deformation:
+roundShape(region, deformationType, direction, roundingDegree, numberSegments, sideReference, deformationAxis, insideDegree)
+
 ''' </ END FOR LOOP > '''
