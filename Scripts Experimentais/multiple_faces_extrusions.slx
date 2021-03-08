@@ -4,7 +4,7 @@ label = "building"; width = 9; depth = 11; height = 5;
 # C2: Generating mass model
 {<> -> createShape("building", 5, 9, 11)};
 
-# C3: Adding virtual shape to the mass model's front face, e.g. containing 3 rows and 4 columns
+# C3: Adding virtual shape to the mass model's front face, e.g. containing 3 rows and 6 columns
 {< descendant() [label=="building"] / [label=="building_front"] > -> createGrid(label_grid, 3, 6)};
 
 # C4: Adding virtual shape to the mass model's back face, e.g. containing 5 rows and 4 columns
