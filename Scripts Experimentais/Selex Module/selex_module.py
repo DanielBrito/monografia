@@ -13,7 +13,7 @@ import math
 ########################################################################################################
 
 # Enter the filename containing the rules and run the script to create the model:
-INPUT_FILE_NAME = "rules.slx"
+INPUT_FILE_NAME = "rules_1.slx"
 
 
 ########################################################################################################
@@ -1969,19 +1969,18 @@ def loadRoundShape(data, regionIndex):
     actionParameters = actionContent.split(", ")
     
     # Checking for rounding type:
-    if len(actionParameters) == 6:
+    if len(actionParameters) == 5:
         # DEBUG - Printing rouding type:
         print("Single side outside rounding")  
         
-        region = actionParameters[0].replace('"', "")
-        type = actionParameters[1].replace('"', "")
-        direction = actionParameters[2].replace('"', "")
-        roundingDegree = float(actionParameters[3])
-        segments = int(actionParameters[4])
-        sideReference = actionParameters[5].replace('"', "")
+        type = actionParameters[0].replace('"', "")
+        direction = actionParameters[1].replace('"', "")
+        roundingDegree = float(actionParameters[2])
+        segments = int(actionParameters[3])
+        sideReference = actionParameters[4].replace('"', "")
         
         # DEBUG - Printing roundShape parameters:
-        print("# roundShape(): ", region, type, direction, roundingDegree, segments, sideReference)
+        print("# roundShape(): ", type, direction, roundingDegree, segments, sideReference)
         
         # Changing select mode:
         bpy.ops.object.mode_set(mode = 'EDIT')
@@ -1995,23 +1994,22 @@ def loadRoundShape(data, regionIndex):
         # Applying deformation:
         roundShape(region, type, direction, roundingDegree, segments, sideReference)       
         
-    elif len(actionParameters) == 7:
+    elif len(actionParameters) == 6:
         
-        direction = actionParameters[2].replace('"', "")
+        direction = actionParameters[1].replace('"', "")
         
         if direction == "outside":
             # DEBUG - Printing rouding type:
             print("Frontal outside rounding")
             
-            region = actionParameters[0].replace('"', "")
-            type = actionParameters[1].replace('"', "")
-            roundingDegree = float(actionParameters[3])
-            segments = int(actionParameters[4])
-            sideReference = actionParameters[5].replace('"', "")
-            axis = actionParameters[6].replace('"', "")
+            type = actionParameters[0].replace('"', "")
+            roundingDegree = float(actionParameters[2])
+            segments = int(actionParameters[3])
+            sideReference = actionParameters[4].replace('"', "")
+            axis = actionParameters[5].replace('"', "")
             
             # DEBUG - Printing roundShape parameters:
-            print("# roundShape(): ", region, type, direction, roundingDegree, segments, sideReference, axis)
+            print("# roundShape(): ", type, direction, roundingDegree, segments, sideReference, axis)
             
             # Changing select mode:
             bpy.ops.object.mode_set(mode = 'EDIT')
@@ -2029,12 +2027,11 @@ def loadRoundShape(data, regionIndex):
             # DEBUG - Printing rouding type:
             print("Single side inside rounding")
             
-            region = actionParameters[0].replace('"', "")
-            type = actionParameters[1].replace('"', "")
-            roundingDegree = float(actionParameters[3])
-            segments = int(actionParameters[4])
-            sideReference = actionParameters[5].replace('"', "")
-            insideDegree = float(actionParameters[6])
+            type = actionParameters[0].replace('"', "")
+            roundingDegree = float(actionParameters[2])
+            segments = int(actionParameters[3])
+            sideReference = actionParameters[4].replace('"', "")
+            insideDegree = float(actionParameters[5])
             
             # DEBUG - Printing roundShape parameters:
             print("# roundShape(): ", region, type, direction, roundingDegree, segments, sideReference, insideDegree)
@@ -2051,21 +2048,20 @@ def loadRoundShape(data, regionIndex):
             # Applying deformation:
             roundShape(region, type, direction, roundingDegree, segments, sideReference, insideDegree)
             
-    elif len(actionParameters) == 8:
+    elif len(actionParameters) == 7:
         # DEBUG - Printing rouding type:
         print("Frontal inside rounding")
         
-        region = actionParameters[0].replace('"', "")
-        type = actionParameters[1].replace('"', "")
-        direction = actionParameters[2].replace('"', "")
-        roundingDegree = float(actionParameters[3])
-        segments = int(actionParameters[4])
-        sideReference = actionParameters[5].replace('"', "")
-        axis = actionParameters[6].replace('"', "")
-        insideDegree = float(actionParameters[7])
+        type = actionParameters[0].replace('"', "")
+        direction = actionParameters[1].replace('"', "")
+        roundingDegree = float(actionParameters[2])
+        segments = int(actionParameters[3])
+        sideReference = actionParameters[4].replace('"', "")
+        axis = actionParameters[5].replace('"', "")
+        insideDegree = float(actionParameters[6])
         
         # DEBUG - Printing roundShape parameters:
-        print("# roundShape(): ", region, type, direction, roundingDegree, segments, sideReference, axis, insideDegree)
+        print("# roundShape(): ", type, direction, roundingDegree, segments, sideReference, axis, insideDegree)
         
         # Changing select mode:
         bpy.ops.object.mode_set(mode = 'EDIT')
