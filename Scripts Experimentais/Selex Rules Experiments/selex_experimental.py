@@ -13,7 +13,7 @@ import math
 ########################################################################################################
 
 # Enter the filename containing the rules and run the script to create the model:
-INPUT_FILE_NAME = "rules_7.slx"
+INPUT_FILE_NAME = "rules_8.slx"
 
 # Flag to hide virtual shapes after model generation:
 HIDE_GRIDS = True
@@ -267,13 +267,15 @@ def duplicateShape(originalShapeLabel):
 
 # Used for reseting the scene and cleaning the console after each execution:
 def resetScene():    
+    # Changing Mode:
+    bpy.ops.object.mode_set(mode = "OBJECT")
+    
     # Deleting created objects if they exist:
     if len(bpy.context.scene.objects) > 0:
         
         for hiddenObj in bpy.context.scene.objects:
             hiddenObj.hide_set(False)
 
-        bpy.ops.object.mode_set(mode = "OBJECT")
         bpy.ops.object.select_all(action="SELECT")
         bpy.ops.object.delete()
 
@@ -291,6 +293,7 @@ def removeVirtualShapes():
     for hiddenObj in bpy.context.scene.objects:
         hiddenObj.hide_set(False)
         
+    bpy.ops.object.mode_set(mode = "OBJECT")
     bpy.ops.object.select_all(action='DESELECT')
     
     # Removing objects containing 'grid' in its name:
@@ -721,7 +724,7 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
         # Round bottom:   
         if type == "bottom":
             # DEBUG:
-            print("ROUND BOTTOM")
+            ## print("ROUND BOTTOM")
                 
             for v in selectedVerts:
                 # DEBUG:
@@ -754,7 +757,7 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
         # Round front vertically by performing a mix of round left and right, but with edges:
         if type == "front" and axis == "vertical":
             # DEBUG:
-            # print("ROUND FRONT VERTICAL")
+            ## print("ROUND FRONT VERTICAL")
             
             leftEdgeIndex, rightEdgeIndex = 0, 0
             vertexA, vertexB = None, None
@@ -833,6 +836,7 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying specific deformation:
             bpy.ops.object.mode_set(mode = 'EDIT')
+            
             if direction == "outside":
                 bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
             elif direction == "inside":
@@ -851,7 +855,7 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             # Searching for top edge:
             for v in selectedVerts:
                 # DEGUG:
-                ## print(v.co, center)
+                ## print("VERT | CENTER: ", v.co[y], center[y])
                             
                 # Checking for upper left vertex:
                 if v.co[x] < center[x] and v.co[z] > center[z] and round(v.co[y]) == round(center[y]):
@@ -868,7 +872,7 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             bpy.ops.object.mode_set(mode = 'EDIT')
             
             # Checking if the vertexes were found:
-            if vertexA == None or vertexB ==None:
+            if vertexA == None or vertexB == None:
                 # DEBUG:
                 ## print("NONE: ", vertexA, vertexB)
                 return
@@ -1281,7 +1285,7 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
         # Round right:       
         if type == "right":
             # DEBUG:
-            print("ROUND RIGHT")
+            ## print("ROUND RIGHT")
                 
             for v in selectedVerts:
                 # DEBUG:
@@ -1314,7 +1318,7 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
         # Round top:
         if type == "top":
             # DEBUG:
-            print("ROUND TOP")
+            ## print("ROUND TOP")
                 
             for v in selectedVerts:
                 # DEBUG:
@@ -2068,7 +2072,7 @@ def loadRoundShape(data, regionIndex):
             insideDegree = float(actionParameters[5])
             
             # DEBUG - Printing roundShape parameters:
-            print("# roundShape(): ", region, type, direction, roundingDegree, segments, sideReference, insideDegree)
+            print("# roundShape(): ", type, direction, roundingDegree, segments, sideReference, insideDegree)
             
             # Changing select mode:
             bpy.ops.object.mode_set(mode = 'EDIT')
