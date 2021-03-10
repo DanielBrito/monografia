@@ -13,7 +13,7 @@ import math
 ########################################################################################################
 
 # Enter the filename containing the rules and run the script to create the model:
-INPUT_FILE_NAME = "rules_8.slx"
+INPUT_FILE_NAME = "rules_10.slx"
 
 # Flag to hide virtual shapes after model generation:
 HIDE_GRIDS = True
@@ -268,14 +268,14 @@ def duplicateShape(originalShapeLabel):
 # Used for reseting the scene and cleaning the console after each execution:
 def resetScene():    
     # Changing Mode:
-    bpy.ops.object.mode_set(mode = "OBJECT")
+    ## bpy.ops.object.mode_set(mode = "OBJECT")
     
     # Deleting created objects if they exist:
     if len(bpy.context.scene.objects) > 0:
         
         for hiddenObj in bpy.context.scene.objects:
             hiddenObj.hide_set(False)
-
+        
         bpy.ops.object.select_all(action="SELECT")
         bpy.ops.object.delete()
 
