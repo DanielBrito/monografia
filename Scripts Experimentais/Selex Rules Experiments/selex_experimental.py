@@ -13,7 +13,13 @@ import math
 ########################################################################################################
 
 # Enter the filename containing the rules and run the script to create the model:
-INPUT_FILE_NAME = "rules_1.slx"
+INPUT_FILE_NAME = "rules_7.slx"
+
+# Flag to hide virtual shapes after model generation:
+HIDE_GRIDS = True
+
+# Flag to remove 'grid' shapes after model generation:
+REMOVE_VIRTUAL_SHAPES = True
 
 
 ########################################################################################################
@@ -155,7 +161,7 @@ def face(x, y, rows):
            x * rows + 1 + y)
 
            
-# Used for selecting a node from shape tree by its label:
+# Used for selecting a node from the shape tree by its label:
 def selectNode(root, labels):
     currentNode = root
     child = None
@@ -234,7 +240,7 @@ def selectToBeVolume(grid, rows, columns, rowsIndex, columnsIndex):
     bpy.ops.mesh.select_mode(type='FACE')
     
     
-# Used to duplicate a given virtual shape by its label:
+# Used for duplicating a given virtual shape by its label:
 def duplicateShape(originalShapeLabel):
     # Setting region as active object inside the scene:
     bpy.context.view_layer.objects.active = bpy.data.objects[originalShapeLabel]
@@ -260,22 +266,45 @@ def duplicateShape(originalShapeLabel):
 
 
 # Used for reseting the scene and cleaning the console after each execution:
-def resetScene():
+def resetScene():    
     # Deleting created objects if they exist:
     if len(bpy.context.scene.objects) > 0:
+        
+        for hiddenObj in bpy.context.scene.objects:
+            hiddenObj.hide_set(False)
+
         bpy.ops.object.mode_set(mode = "OBJECT")
         bpy.ops.object.select_all(action="SELECT")
         bpy.ops.object.delete()
+
+
+# Used for hiding virtual shapes after model generation:
+def hideVirtualShapes():
+    for obj in bpy.data.objects:
+        if "grid" in obj.name:
+            obj.hide_set(True)
+            
+
+# Used for removing virtual shapes after model generation:
+def removeVirtualShapes():
+    # Changing object's visibility to 'visible':
+    for hiddenObj in bpy.context.scene.objects:
+        hiddenObj.hide_set(False)
         
-    # Cleaning debugging logs:
-    os.system("clear")
+    bpy.ops.object.select_all(action='DESELECT')
+    
+    # Removing objects containing 'grid' in its name:
+    for obj in bpy.data.objects:
+        if "grid" in obj.name:
+            bpy.data.objects[obj.name].select_set(True)
+            bpy.ops.object.delete()
 
 
 ########################################################################################################
 # $ ACTIONS MODULE
 ########################################################################################################
 
-# Used to create a virtual shape and update the shape tree:
+# Used for creating a virtual shape and update the shape tree:
 def createGrid(label, side, rows, columns):
     # Retrieving side dimensions:
     width = side.getDimX()
@@ -331,7 +360,7 @@ def createGrid(label, side, rows, columns):
     return mesh
 
 
-# Used to create the mass model and update shape tree:
+# Used for creating the mass model and update shape tree:
 def createShape(root, label, width, depth, height):
     # Creating and retrieving mass model:
     mass3D = create3DMass(label, width, depth, height)
@@ -431,7 +460,7 @@ def addVolume(label, parent, extrusionSize, sidesLabels, gridLabel):
     return regionIndex + 1
 
 
-# Used to group selected cells:
+# Used for grouping selected cells:
 def groupRegions(label, parent, gridLabel):
     # Separating selected subgrid by creating a new object:
     bpy.ops.mesh.separate(type='SELECTED')
@@ -1848,6 +1877,7 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
 # $ INPUT STREAM MODULE
 ########################################################################################################
 
+# Used for loading mass model settings:
 def loadSettings(data):
     # Splitting assignments into tokens:
     settings = data.split(";")
@@ -1870,11 +1900,13 @@ def loadSettings(data):
     createShape(root, label, float(width), float(depth), float(height))
 
 
+# Used for creating mass model:
 def loadCreateShape(root, label, width, depth, height):
     # DEBUG - Printing createShape parameters:
     print("# createShape(): ", root, label, width, depth, height)
 
 
+# Used for creating and positioning virtual shape:
 def loadCreateGrid(data):
     # Splitting selection expressions and action into tokens:
     selection, action = data.split("->")
@@ -1898,6 +1930,7 @@ def loadCreateGrid(data):
     placeMainVirtualShape(side, virtualShape)
 
 
+# Used for extruding region from the mass model:
 def loadAddVolume(data):
     # Splitting selection expressions and action into tokens:
     selection, action = data.split("->")
@@ -1956,6 +1989,7 @@ def loadAddVolume(data):
     return regionIndex
 
 
+# Used for applying deformation to the mass model:
 def loadRoundShape(data, regionIndex):
     # Splitting selection expressions and action into tokens:
     selection, action = data.split("->")
@@ -2080,6 +2114,7 @@ def loadRoundShape(data, regionIndex):
 # $ FILE MODULE
 ########################################################################################################
 
+# Used for reading the file containing the rules:
 def readFile():
 
     # Retrieving Blender project location:
@@ -2127,9 +2162,25 @@ def readFile():
 # $ EXECUTION MODULE
 ########################################################################################################
 
+# Used for initialization:
 def main():
+    
+    # DEBUG - Cleaning debugging logs before execution:
+    os.system("clear")
+    
+    # Removing objects of the scene:
     resetScene()
+    
+    # Read file containing SELEX rules:
     readFile()
     
+    # Checking if user decided to hide the virtual shapes:
+    if HIDE_GRIDS:
+        hideVirtualShapes()
+
+    # Checking if user decided to remove the virtual shapes:
+    if REMOVE_VIRTUAL_SHAPES:
+        removeVirtualShapes()
+
 if __name__ == "__main__":
     main()
