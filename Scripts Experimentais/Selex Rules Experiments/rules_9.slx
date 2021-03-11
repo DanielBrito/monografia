@@ -28,17 +28,17 @@ label = "building"; width = 3; depth = 3; height = 3;
 
 
 # C7: Selecting region and performing extrusion
-{< descendant() [label=="building"] / [label=="building_left"] / [label=="main_left_grid"] / [type=="cell"] [rowIdx in (1, 2, 3, 4, 5)] [colIdx in (1, 2, 3)] [::groupRegions()] > -> addVolume("east_1", "building_left", 2, ["east_1_front", "east_1_left", "east_1_right"])};
+{< descendant() [label=="building"] / [label=="building_left"] / [label=="main_left_grid"] / [type=="cell"] [rowIdx in (1, 2, 3, 4, 5)] [colIdx in (1, 2, 3)] [::groupRegions()] > -> addVolume("west_1", "building_left", 2, ["west_1_front", "west_1_left", "west_1_right"])};
 
 # C8: Applying roundShape deformation
-{< descendant() [label=="building"] / [label=="building_left"] / [label=="east_1"] / [label=="east_1_front"] > -> roundShape("top", "outside", 1, 30, "main_left", "vertical")};
+{< descendant() [label=="building"] / [label=="building_left"] / [label=="west_1"] / [label=="west_1_front"] > -> roundShape("top", "outside", 1, 30, "main_left", "vertical")};
 
 
 # C7: Selecting region and performing extrusion
-{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (1, 2, 3, 4, 5)] [colIdx in (1, 2, 3)] [::groupRegions()] > -> addVolume("west_1", "building_right", 2, ["west_1_front", "west_1_left", "west_1_right"])};
+{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (1, 2, 3, 4, 5)] [colIdx in (1, 2, 3)] [::groupRegions()] > -> addVolume("east_1", "building_right", 2, ["east_1_front", "east_1_left", "east_1_right"])};
 
 # C8: Applying roundShape deformation
-{< descendant() [label=="building"] / [label=="building_right"] / [label=="west_1"] / [label=="west_1_front"] > -> roundShape("top", "outside", 1, 30, "main_right", "vertical")};
+{< descendant() [label=="building"] / [label=="building_right"] / [label=="east_1"] / [label=="east_1_front"] > -> roundShape("top", "outside", 1, 30, "main_right", "vertical")};
 
 
 # C7: Selecting region and performing extrusion

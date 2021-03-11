@@ -61,7 +61,7 @@ label = "building"; width = 10; depth = 10; height = 10;
 # ROUND FRONT HORIZONTAL:
 
 # C16: Selecting region and performing extrusion
-{< descendant() [label=="building"] / [label=="building_back"] / [label=="main_back_grid"] / [type=="cell"] [rowIdx in (1, 2, 3, 4, 5)] [colIdx in (7, 8, 9, 10, 11, 12, 13, 14)] [::groupRegions()] > -> addVolume("south_7", "building_back", 3, ["south_7_front", "south_7_left", "south_7_right"])};
+{< descendant() [label=="building"] / [label=="building_back"] / [label=="main_back_grid"] / [type=="cell"] [rowIdx in (1, 2, 3, 4, 5)] [colIdx in (7, 8, 9, 10, 11, 12, 13, 14)] [::groupRegions()] > -> addVolume("south_7", "building_back", 2.5, ["south_7_front", "south_7_left", "south_7_right"])};
 
 # C17: Applying roundShape deformation
 {< descendant() [label=="building"] / [label=="building_back"] / [label=="south_7"] / [label=="south_7_front"] > -> roundShape("front", "outside", 0.25, 30, "main_back", "horizontal")};
