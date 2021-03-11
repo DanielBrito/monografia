@@ -13,7 +13,7 @@ import math
 ########################################################################################################
 
 # Enter the filename containing the rules and run the script to create the model:
-INPUT_FILE_NAME = "rules_10.slx"
+INPUT_FILE_NAME = "test_2.slx"
 
 # Flag to hide virtual shapes after model generation:
 HIDE_GRIDS = True
@@ -398,7 +398,7 @@ def createShape(root, label, width, depth, height):
 
 
 # Used for extruding selected region:
-def addVolume(label, parent, extrusionSize, sidesLabels, gridLabel):
+def addVolume(label, parent, extrusionSize, sidesLabels, gridLabel, gridRows, gridColumns):
     # Grouping selected cells into a region to be extruded, and storing created subgrid:
     subgrid = groupRegions(label, parent, gridLabel)
     
@@ -457,7 +457,7 @@ def addVolume(label, parent, extrusionSize, sidesLabels, gridLabel):
     regionFront = parent.descendant(sidesLabels[0])
     
     ## Adding virtual grid as child of front face:
-    regionFront.addChild(Node(subgrid.name, subgrid, regionFront, "virtual"))
+    regionFront.addChild(Node(subgrid.name, subgrid, regionFront, "virtual", 0, 0, 0, gridRows, gridColumns))
     
     # Retrieving frontal polygon index:
     return regionIndex + 1
@@ -491,7 +491,7 @@ def groupRegions(label, parent, gridLabel):
     bpy.data.objects[label].select_set(True)
     bpy.context.view_layer.objects.active = bpy.data.objects[label]
     
-    # Setting object mode to fix poll error:
+    # Setting object mode:
     bpy.ops.object.mode_set(mode = 'OBJECT')
     
     # Adding created region as child of parent:
@@ -858,13 +858,13 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
                 ## print("VERT | CENTER: ", v.co[y], center[y])
                             
                 # Checking for upper left vertex:
-                if v.co[x] < center[x] and v.co[z] > center[z] and round(v.co[y]) == round(center[y]):
+                if v.co[x] < center[x] and v.co[z] > center[z] and math.floor(v.co[y]) == math.floor(center[y]):
                     # DEBUG:
                     ## print("selecting upper left vertex = ", v.index)
                     vertexA = bpy.context.active_object.data.vertices[v.index]
                     
                 # Checking for upper right vertex:
-                if v.co[x] > center[x] and v.co[z] > center[z] and round(v.co[y]) == round(center[y]):
+                if v.co[x] > center[x] and v.co[z] > center[z] and math.floor(v.co[y]) == math.floor(center[y]):
                     # DEBUG:
                     ## print("selecting upper right vertex = ", v.index)
                     vertexB = bpy.context.active_object.data.vertices[v.index]
@@ -893,13 +893,13 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
                 ## print(v.co, center)
                             
                 # Checking for bottom left vertex:
-                if v.co[x] < center[x] and v.co[z] < center[z] and round(v.co[y]) == round(center[y]):
+                if v.co[x] < center[x] and v.co[z] < center[z] and math.floor(v.co[y]) == math.floor(center[y]):
                     # DEBUG:
                     ## print("selecting bottom left vertex = ", v.index)
                     vertexA = bpy.context.active_object.data.vertices[v.index]
                     
                 # Checking for bottom right vertex:
-                if v.co[x] > center[x] and v.co[z] < center[z] and round(v.co[y]) == round(center[y]):
+                if v.co[x] > center[x] and v.co[z] < center[z] and math.floor(v.co[y]) == math.floor(center[y]):
                     # DEBUG:
                     ## print("selecting bottom right vertex = ", v.index)
                     vertexB = bpy.context.active_object.data.vertices[v.index]
@@ -1171,13 +1171,13 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
                 ## print(v.co, center)
                             
                 # Checking for upper left vertex:
-                if v.co[x] < center[x] and v.co[z] > center[z] and round(v.co[y]) == round(center[y]):
+                if v.co[x] < center[x] and v.co[z] > center[z] and math.floor(v.co[y]) == math.floor(center[y]):
                     # DEBUG:
                     ## print("selecting upper left vertex = ", v.index)
                     vertexA = bpy.context.active_object.data.vertices[v.index]
                     
                 # Checking for upper right vertex:
-                if v.co[x] > center[x] and v.co[z] > center[z] and round(v.co[y]) == round(center[y]):
+                if v.co[x] > center[x] and v.co[z] > center[z] and math.floor(v.co[y]) == math.floor(center[y]):
                     # DEBUG:
                     ## print("selecting upper right vertex = ", v.index)
                     vertexB = bpy.context.active_object.data.vertices[v.index]
@@ -1206,13 +1206,13 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
                 ## print(v.co, center)
                             
                 # Checking for bottom left vertex:
-                if v.co[x] < center[x] and v.co[z] < center[z] and round(v.co[y]) == round(center[y]):
+                if v.co[x] < center[x] and v.co[z] < center[z] and math.floor(v.co[y]) == math.floor(center[y]):
                     # DEBUG:
                     ## print("selecting bottom left vertex = ", v.index)
                     vertexA = bpy.context.active_object.data.vertices[v.index]
                     
                 # Checking for bottom right vertex:
-                if v.co[x] > center[x] and v.co[z] < center[z] and round(v.co[y]) == round(center[y]):
+                if v.co[x] > center[x] and v.co[z] < center[z] and math.floor(v.co[y]) == math.floor(center[y]):
                     # DEBUG:
                     ## print("selecting bottom right vertex = ", v.index)
                     vertexB = bpy.context.active_object.data.vertices[v.index]
@@ -1271,7 +1271,7 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
                     bpy.context.active_object.data.vertices[v.index].select = True
             
             # Changing object mode:
-            bpy.ops.object.mode_set(mode = 'EDIT')  
+            bpy.ops.object.mode_set(mode = 'EDIT')
             bpy.ops.mesh.select_mode(type="VERT")
             
             # Applying specific deformation:
@@ -1485,13 +1485,13 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
                 ## print(v.co, center)
                             
                 # Checking for upper left vertex:
-                if v.co[y] > center[y] and v.co[z] > center[z] and round(v.co[x]) == round(center[x]):
+                if v.co[y] > center[y] and v.co[z] > center[z] and math.floor(v.co[x]) == math.floor(center[x]):
                     # DEBUG:
                     ## print("selecting upper left vertex = ", v.index)
                     vertexA = bpy.context.active_object.data.vertices[v.index]
                     
                 # Checking for upper right vertex:
-                if v.co[y] < center[y] and v.co[z] > center[z] and round(v.co[x]) == round(center[x]):
+                if v.co[y] < center[y] and v.co[z] > center[z] and math.floor(v.co[x]) == math.floor(center[x]):
                     # DEBUG:
                     ## print("selecting upper right vertex = ", v.index)
                     vertexB = bpy.context.active_object.data.vertices[v.index]
@@ -1520,13 +1520,13 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
                 ## print(v.co, center)
                             
                 # Checking for bottom left vertex:
-                if v.co[y] > center[y] and v.co[z] < center[z] and round(v.co[x]) == round(center[x]):
+                if v.co[y] > center[y] and v.co[z] < center[z] and math.floor(v.co[x]) == math.floor(center[x]):
                     # DEBUG:
                     ## print("selecting bottom left vertex = ", v.index)
                     vertexA = bpy.context.active_object.data.vertices[v.index]
                     
                 # Checking for bottom right vertex:
-                if v.co[y] < center[y] and v.co[z] < center[z] and round(v.co[x]) == round(center[x]):
+                if v.co[y] < center[y] and v.co[z] < center[z] and math.floor(v.co[x]) == math.floor(center[x]):
                     # DEBUG:
                     ## print("selecting bottom right vertex = ", v.index)
                     vertexB = bpy.context.active_object.data.vertices[v.index]
@@ -1799,13 +1799,13 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
                 ## print(v.co, center)
                             
                 # Checking for upper left vertex:
-                if v.co[y] < center[y] and v.co[z] > center[z] and round(v.co[x]) == round(center[x]):
+                if v.co[y] < center[y] and v.co[z] > center[z] and math.floor(v.co[x]) == math.floor(center[x]):
                     # DEBUG:
                     ## print("selecting upper left vertex = ", v.index)
                     vertexA = bpy.context.active_object.data.vertices[v.index]
                     
                 # Checking for upper right vertex:
-                if v.co[y] > center[y] and v.co[z] > center[z] and round(v.co[x]) == round(center[x]):
+                if v.co[y] > center[y] and v.co[z] > center[z] and math.floor(v.co[x]) == math.floor(center[x]):
                     # DEBUG:
                     ## print("selecting upper right vertex = ", v.index)
                     vertexB = bpy.context.active_object.data.vertices[v.index]
@@ -1834,13 +1834,13 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
                 ## print(v.co, center)
                             
                 # Checking for bottom left vertex:
-                if v.co[y] < center[y] and v.co[z] < center[z] and round(v.co[x]) == round(center[x]):
+                if v.co[y] < center[y] and v.co[z] < center[z] and math.floor(v.co[x]) == math.floor(center[x]):
                     # DEBUG:
                     ## print("selecting bottom left vertex = ", v.index)
                     vertexA = bpy.context.active_object.data.vertices[v.index]
                     
                 # Checking for bottom right vertex:
-                if v.co[y] > center[y] and v.co[z] < center[z] and round(v.co[x]) == round(center[x]):
+                if v.co[y] > center[y] and v.co[z] < center[z] and math.floor(v.co[x]) == math.floor(center[x]):
                     # DEBUG:
                     ## print("selecting bottom right vertex = ", v.index)
                     vertexB = bpy.context.active_object.data.vertices[v.index]
@@ -1976,7 +1976,7 @@ def loadAddVolume(data):
     # Creating grid copy to be used as selection tool:
     gridCopy = duplicateShape(grid.getLabel())
     
-    gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", grid.getDimX(), grid.getDimY(), grid.getDimZ(), grid.getRows()+1, grid.getColumns()+1)
+    gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", 0, 0, 0, grid.getRows()+1, grid.getColumns()+1)
     
     # Selecting cells from the grid:
     selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rows, columns)
@@ -1988,7 +1988,7 @@ def loadAddVolume(data):
     gridLabel = gridCopyNode.getLabel()
     
     # Adding volume to the mass model and retrieving face index to apply deformation:
-    regionIndex = addVolume(label, parent, float(extrusionSize), sideLabels, gridLabel)
+    regionIndex = addVolume(label, parent, float(extrusionSize), sideLabels, gridLabel, len(rows), len(columns))
     
     return regionIndex
 
