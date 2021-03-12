@@ -13,7 +13,7 @@ import math
 ########################################################################################################
 
 # Enter the filename containing the rules and run the script to create the model:
-INPUT_FILE_NAME = "test_2.slx"
+INPUT_FILE_NAME = "test_1.slx"
 
 # Flag to hide virtual shapes after model generation:
 HIDE_GRIDS = True
@@ -209,7 +209,7 @@ def selectToBeVolume(grid, rows, columns, rowsIndex, columnsIndex):
     # Setting grid as active object inside the scene:
     bpy.context.view_layer.objects.active = bpy.data.objects[grid.getLabel()]
     
-    # Used to store the conversion from row and column indexes to face index:
+    # Used to store the conversion from row and column indices to face index:
     selectCells = []
 
     for rowIndex in rowsIndex:
@@ -217,7 +217,7 @@ def selectToBeVolume(grid, rows, columns, rowsIndex, columnsIndex):
             cellIndex = (columns * rowIndex) - columns + (columnIndex - 1)
             selectCells.append(cellIndex)
 
-    # DEBUG - Printing selected indexes:      
+    # DEBUG - Printing selected indices:      
     ## print("GRID CELLS: ", selectCells)
 
     # Changing object mode:
@@ -301,6 +301,11 @@ def removeVirtualShapes():
         if "grid" in obj.name:
             bpy.data.objects[obj.name].select_set(True)
             bpy.ops.object.delete()
+
+
+# Used for generating a list of indices from 'idxBegin' to 'idxEnd':
+def rangeIndex(idxBegin, idxEnd):
+    return [i for i in range(idxBegin, idxEnd)]
 
 
 ########################################################################################################
@@ -536,24 +541,24 @@ def groupRegions(label, parent, gridLabel):
 
     bpy.ops.object.mode_set(mode = 'OBJECT')
 
-    # Creating list with all of the object indexes:
+    # Creating list with all of the object indices:
     ids = list(range(len(region.getEdges())))
 
-    # DEBUG - Printing all of the edges indexes:
-    ## print("ALL EDGES INDEXES: ", ids)
+    # DEBUG - Printing all of the edges indices:
+    ## print("ALL EDGES INDICES: ", ids)
 
-    # Storing just the selected indexes:
+    # Storing just the selected indices:
     selectedEdges = [e.index for e in region.getEdges() if e.select]
 
-    # DEBUG - Printing border indexes:
-    ## print("BORDER EDGES INDEXES: ", selectedEdges)
+    # DEBUG - Printing border indices:
+    ## print("BORDER EDGES INDICES: ", selectedEdges)
 
-    # Removing border indexes, so the remaining will be internal:
+    # Removing border indices, so the remaining will be internal:
     for e in selectedEdges:
         ids.remove(e)
   
-    # DEBUG - Printing internal indexes:
-    ## print("INTERNAL EDGES INDEXES: ", ids)
+    # DEBUG - Printing internal indices:
+    ## print("INTERNAL EDGES INDICES: ", ids)
 
     # Changing mode:
     bpy.ops.object.mode_set(mode = 'EDIT')
@@ -1946,11 +1951,35 @@ def loadAddVolume(data):
     selectionLabels.pop()
     
     # Sepatating list of rows and columns:
-    rowsIndexes, columnsIndexes = re.findall('\(([^)]+)', selection)
+    rowsIndices, columnsIndices = re.findall('\(([^)]+)', selection)
     
-    # Converting to list of integers:
-    rows = [int(v) for v in rowsIndexes.split(', ')]
-    columns = [int(v) for v in columnsIndexes.split(', ')]
+    # Converting rows to list of integers:
+    if "indexRange" in rowsIndices:
+        # Extracting range numbers from the string:
+        r = list(map(int, re.findall(r'\d+', rowsIndices)))
+        
+        # DEBUG:
+        print("ROWS = indexRange(): ", r)
+        
+        # Generating list with the given range:
+        rows = rangeIndex(r[0], r[-1]+1)
+    else:
+        # Extracting indices from the string:        
+        rows = [int(i) for i in rowsIndices.split(', ')]
+        
+    # Converting columns to list of integers:
+    if "indexRange" in columnsIndices:
+        # Extracting range numbers from the string:
+        c = list(map(int, re.findall(r'\d+', columnsIndices)))
+        
+        # DEBUG:
+        print("COLS = indexRange(): ", c)
+
+        # Generating list with the given range:
+        columns = rangeIndex(c[0], c[-1]+1)
+    else:
+        # Extracting indices from the string:
+        columns = [int(i) for i in columnsIndices.split(', ')]
     
     # Retrieving content inside parenthesis:
     actionContent = re.findall('\(([^)]+)', action)[0]
@@ -2148,7 +2177,7 @@ def readFile():
             loadSettings(rule)
             
         if "createShape" in rule:
-            print("# createShape: Ran right after loadSettings")
+            print("# createShape: Ran right after loadSettings()")
         
         if "createGrid" in rule:
             loadCreateGrid(rule)
