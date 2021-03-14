@@ -2,10 +2,10 @@
 # $ IMPORTED LIBRARIES
 ########################################################################################################
 
-import os
 import bpy
-import re
 import math
+import os
+import re
 
 
 ########################################################################################################
@@ -13,24 +13,22 @@ import math
 ########################################################################################################
 
 # Enter the filename containing the rules and run the script to create the model:
-INPUT_FILE_NAME = "test_1.slx"
+INPUT_FILE_NAME = "rules_1.slx"
 
 # Flag to hide virtual shapes after model generation:
-HIDE_GRIDS = True
+HIDE_VIRTUAL_SHAPES = True
 
 # Flag to remove 'grid' shapes after model generation:
 REMOVE_VIRTUAL_SHAPES = True
 
 
 ########################################################################################################
-# $ DATA STRUCTURE (SHAPE TREE)
+# $ CLASSES MODULE
 ########################################################################################################
 
 class Node(object):
     # CONSTRUCTOR:
-    
-    # Attributes 'label', 'object', 'parent' and 'type' are required for every node:
-    def __init__(self, label, object, parent, type, dimX=0, dimY=0, dimZ=0, rows=0, columns=0):
+    def __init__(self, label, object, parent):
         # ATTRIBUTES:
         
         # Object label:
@@ -42,20 +40,8 @@ class Node(object):
         # Parent shape:
         self.parent = parent
         
-        # Virtual or construction shape:
-        self.type = type
-        
         # Subshapes:
         self.children = []
-        
-        # Dimensions for construction shapes:
-        self.dimX = dimX
-        self.dimY = dimY
-        self.dimZ = dimZ
-        
-        # Number of rows and columns for virtual shapes:
-        self.rows = rows-1
-        self.columns = columns-1
         
     # METHODS:
         
@@ -80,6 +66,8 @@ class Node(object):
     def getParent(self):
         return self.parent
     
+    ## Utility functions:
+    
     def getPolygon(self, index):
         return self.obj.data.polygons[index]
     
@@ -89,6 +77,52 @@ class Node(object):
     def getIndex(self):
         return self.obj.index
     
+    def printChildren(self):
+        for child in self.children:
+            print(child.label)
+
+
+# Inheritance from Node:
+class Virtual(Node):
+    # CONSTRUCTOR:
+    def __init__(self, label, object, parent, rows, columns):
+        # Calling parent constructor:
+        super().__init__(label, object, parent)
+        
+        # ATTRIBUTES:
+        
+        ## Number of rows/columns and type:
+        self.rows = rows-1
+        self.columns = columns-1
+        
+    # GETTERS:
+        
+    def getRows(self):
+        return self.rows
+    
+    def getColumns(self):
+        return self.columns
+    
+    def getType(self):
+        return type(self).__name__
+        
+
+# Inheritance from Node:
+class Construction(Node):
+    # CONSTRUCTOR:
+    def __init__(self, label, object, parent, dimX=0, dimY=0, dimZ=0):
+        # Calling parent constructor:
+        super().__init__(label, object, parent)
+         
+        # ATTRIBUTES:
+          
+        ## Dimensions:
+        self.dimX = dimX
+        self.dimY = dimY
+        self.dimZ = dimZ
+        
+    # GETTERS:
+        
     def getDimX(self):
         return self.dimX
     
@@ -98,29 +132,20 @@ class Node(object):
     def getDimZ(self):
         return self.dimZ
     
-    def getRows(self):
-        return self.rows
+    def getType(self):
+        return type(self).__name__
     
-    def getColumns(self):
-        return self.columns
-    
-    ## Utilitary functions:
-    
-    def printChildren(self):
-        for child in self.children:
-            print(child.label)
-
 
 ########################################################################################################
 # $ INITIALIZE SHAPE TREE
 ########################################################################################################
 
 # Defining shape tree root node as a global variable:
-root = Node("root", None, None, None)
+root = Node("root", None, None)
 
 
 ########################################################################################################
-# $ UTILITARY FUNCTIONS
+# $ UTILITY FUNCTIONS
 ########################################################################################################
 
 # Used for creating the initial mass model from settings values:
@@ -362,7 +387,7 @@ def createGrid(label, side, rows, columns):
     bpy.data.objects[label].select_set(False)
     
     # Adding virtual shape as child of side:
-    side.addChild(Node(label, mesh, side, "virtual", width, 0, height, rows, columns))
+    side.addChild(Virtual(label, mesh, side, rows, columns))
     
     # Returning the created mesh reference:
     return mesh
@@ -374,7 +399,7 @@ def createShape(root, label, width, depth, height):
     mass3D = create3DMass(label, width, depth, height)
 
     # Adding building mass node to shape tree:
-    root.addChild(Node(label, mass3D, root, "construction", width, depth, height))
+    root.addChild(Construction(label, mass3D, root, width, depth, height))
 
     # Retrieving root node descendant by label:
     building = root.descendant(label)
@@ -385,10 +410,10 @@ def createShape(root, label, width, depth, height):
     bpy.ops.object.mode_set(mode = "OBJECT")
 
     # Creating nodes with object faces:
-    front = Node(building.label + "_" + "front", building.getPolygon(3), building, "construction", width, 0, height)
-    left = Node(building.label + "_" + "left", building.getPolygon(0), building, "construction", depth, 0, height)
-    right = Node(building.label + "_" + "right", building.getPolygon(2), building, "construction", depth, 0, height)
-    back = Node(building.label + "_" + "back", building.getPolygon(1), building, "construction", width, 0, height)
+    front = Construction(building.label + "_" + "front", building.getPolygon(3), building, width, 0, height)
+    left = Construction(building.label + "_" + "left", building.getPolygon(0), building, depth, 0, height)
+    right = Construction(building.label + "_" + "right", building.getPolygon(2), building, depth, 0, height)
+    back = Construction(building.label + "_" + "back", building.getPolygon(1), building, width, 0, height)
 
     # Adding front, back, left and right faces as children of 'building':
     building.addChild(front)
@@ -456,13 +481,13 @@ def addVolume(label, parent, extrusionSize, sidesLabels, gridLabel, gridRows, gr
     regionFrontMesh = bpy.data.objects[grandparent.getLabel()].data.polygons[regionIndex+1]
     
     ## Adding front face as child of parent:
-    parent.addChild(Node(sidesLabels[0], regionFrontMesh, parent, "construction"))
+    parent.addChild(Construction(sidesLabels[0], regionFrontMesh, parent))
     
     ## Retrieving front face node:
     regionFront = parent.descendant(sidesLabels[0])
     
     ## Adding virtual grid as child of front face:
-    regionFront.addChild(Node(subgrid.name, subgrid, regionFront, "virtual", 0, 0, 0, gridRows, gridColumns))
+    regionFront.addChild(Virtual(subgrid.name, subgrid, regionFront, gridRows, gridColumns))
     
     # Retrieving frontal polygon index:
     return regionIndex + 1
@@ -500,7 +525,7 @@ def groupRegions(label, parent, gridLabel):
     bpy.ops.object.mode_set(mode = 'OBJECT')
     
     # Adding created region as child of parent:
-    parent.addChild(Node(label, region, parent, "construction"))
+    parent.addChild(Construction(label, region, parent))
 
     # Moving object's origin to its center:
     bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
@@ -1959,7 +1984,7 @@ def loadAddVolume(data):
         r = list(map(int, re.findall(r'\d+', rowsIndices)))
         
         # DEBUG:
-        print("ROWS = indexRange(): ", r)
+        ## print("ROWS = indexRange(): ", r)
         
         # Generating list with the given range:
         rows = rangeIndex(r[0], r[-1]+1)
@@ -1973,7 +1998,7 @@ def loadAddVolume(data):
         c = list(map(int, re.findall(r'\d+', columnsIndices)))
         
         # DEBUG:
-        print("COLS = indexRange(): ", c)
+        ## print("COLS = indexRange(): ", c)
 
         # Generating list with the given range:
         columns = rangeIndex(c[0], c[-1]+1)
@@ -2005,7 +2030,7 @@ def loadAddVolume(data):
     # Creating grid copy to be used as selection tool:
     gridCopy = duplicateShape(grid.getLabel())
     
-    gridCopyNode = Node(gridCopy.name, gridCopy, grid.getParent(), "virtual", 0, 0, 0, grid.getRows()+1, grid.getColumns()+1)
+    gridCopyNode = Virtual(gridCopy.name, gridCopy, grid.getParent(), grid.getRows()+1, grid.getColumns()+1)
     
     # Selecting cells from the grid:
     selectToBeVolume(gridCopyNode, gridCopyNode.getRows(), gridCopyNode.getColumns(), rows, columns)
@@ -2141,6 +2166,30 @@ def loadRoundShape(data, regionIndex):
 
         # Applying deformation:
         roundShape(region, type, direction, roundingDegree, segments, sideReference, axis, insideDegree)
+        
+
+# Used to compute instructions by calling its propor function:
+def computeInstructions(rules):
+    # Auxiliary variable to help selecting shape for applying deformation after extrusion:
+    regionIndex = 0
+        
+    for index, rule in enumerate(rules):
+        if index == 0:
+            loadSettings(rule)
+            
+        if "createShape" in rule:
+            print("# createShape: Ran right after loadSettings()")
+        
+        if "createGrid" in rule:
+            loadCreateGrid(rule)
+        
+        if "addVolume" in rule:
+            regionIndex = loadAddVolume(rule)
+            
+        if "roundShape" in rule:
+            loadRoundShape(rule, regionIndex)
+            
+        print()
 
 
 ########################################################################################################
@@ -2168,27 +2217,8 @@ def readFile():
     # Removing comments and blank lines:
     for line in arr:
         filteredRules = [line.strip() for line in arr if line.strip() and "#" not in line]
-        
-    # Auxiliary variable to help selecting shape for applying deformation after extrusion:
-    regionIndex = 0
-        
-    for index, rule in enumerate(filteredRules):
-        if index == 0:
-            loadSettings(rule)
-            
-        if "createShape" in rule:
-            print("# createShape: Ran right after loadSettings()")
-        
-        if "createGrid" in rule:
-            loadCreateGrid(rule)
-        
-        if "addVolume" in rule:
-            regionIndex = loadAddVolume(rule)
-            
-        if "roundShape" in rule:
-            loadRoundShape(rule, regionIndex)
-            
-        print()
+          
+    computeInstructions(filteredRules)
  
        
 ########################################################################################################
@@ -2208,7 +2238,7 @@ def main():
     readFile()
     
     # Checking if user decided to hide the virtual shapes:
-    if HIDE_GRIDS:
+    if HIDE_VIRTUAL_SHAPES:
         hideVirtualShapes()
 
     # Checking if user decided to remove the virtual shapes:
