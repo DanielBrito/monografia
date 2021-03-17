@@ -9,3 +9,4 @@ Os itens a seguir representam alguns dos resultados obtidos por meio da soluçã
 - [Modelo 05](Modelo_05)
 - [Modelo 06](Modelo_06)
 - [Modelo 07](Modelo_07)
+- [Modelo 08](Modelo_08)
