@@ -55,5 +55,5 @@ _{< descendant() [label=="building"] / [label=="building_front"] / [label=="faca
 <h2 align="center">🏢 Resultado</h2>
 
 <div align="center">
-  <img src="modelo_02.png" alt="Modelo 01">
+  <img src="modelo_02.png" alt="Modelo 02">
 </div>
