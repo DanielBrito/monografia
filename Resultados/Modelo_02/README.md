@@ -4,11 +4,11 @@
 
 #### **_\#C1: Initial settings_**
 
-label = "building"; width = 9; depth = 8; height = 5;
+_label = "building"; width = 9; depth = 8; height = 5;_
 
 #### **_\#C2: Generating mass model_**
 
-{<> -> createShape("building", width, depth, height)};
+_{<> -> createShape("building", width, depth, height)};_
 
 \# GRID:
 
