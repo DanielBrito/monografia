@@ -16,7 +16,7 @@ _{<> -> createShape("building", width, depth, height)};_
 
 _{< descendant() [label=="building"] / [label=="building_right"] > -> createGrid("main_right_grid", 10, 5)};_
 
-\# DEFORMATION
+\# DEFORMATION:
 
 #### **_\#C4: Selecting region and performing extrusion_**
 

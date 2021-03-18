@@ -28,7 +28,7 @@ _{< descendant() [label=="building"] / [label=="building_left"] > -> createGrid(
 
 _{< descendant() [label=="building"] / [label=="building_right"] > -> createGrid("main_right_grid", 5, 3)};_
 
-\# DEFORMATION
+\# DEFORMATION:
 
 #### **_\#C7: Selecting region and performing extrusion_**
 

@@ -10,7 +10,7 @@ _label = "building"; width = 5; depth = 5; height = 5;_
 
 _{<> -> createShape("building", width, depth, height)};_
 
-\# GRIDS
+\# GRIDS:
 
 #### **_\#C3: Adding virtual shape to the mass model_**
 
@@ -20,7 +20,7 @@ _{< descendant() [label=="building"] / [label=="building_front"] > -> createGrid
 
 _{< descendant() [label=="building"] / [label=="building_right"] > -> createGrid("main_right_grid", 5, 5)};_
 
-\# FRONT
+\# FRONT:
 
 #### **_\#C5: Selecting region and performing extrusion_**
 
@@ -30,7 +30,7 @@ _{< descendant() [label=="building"] / [label=="building_front"] / [label=="main
 
 _{< descendant() [label=="building"] / [label=="building_front"] / [label=="south_1"] / [label=="south_1_front"] > -> roundShape("front", "outside", 1, 2, "main_front", "vertical")};_
 
-\# RIGHT
+\# RIGHT:
 
 #### **_\#C7: Selecting region and performing extrusion_**
 
