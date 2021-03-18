@@ -2,7 +2,7 @@
 label = "building"; width = 9; depth = 8; height = 5;
 
 # C2: Generating mass model
-{<> -> createShape("building", width, depth, height)};
+{<> -> createShape(label, width, depth, height)};
 
 # GRID:
 
@@ -12,25 +12,25 @@ label = "building"; width = 9; depth = 8; height = 5;
 # DEFORMATION:
 
 # C4: Selecting region and performing extrusion
-{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (1, 2, 3)] [colIdx in (1, 2)] [::groupRegions()] > -> addVolume("entrance_1", "building_front", 2.5, ["entrance_1_front", "entrance_1_left", "entrance_1_right"])};
+{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (1, 2, 3)] [colIdx in (1, 2)] [::groupRegions()] > -> addVolume("facade_1", "building_front", 2.5, ["facade_1_front", "facade_1_left", "facade_1_right"])};
 
 # C5: Applying roundShape deformation
-{< descendant() [label=="building"] / [label=="building_front"] / [label=="entrance_1"] / [label=="entrance_1_front"] > -> roundShape("front", "outside", 0.33, 30, "main_front", "vertical")};
+{< descendant() [label=="building"] / [label=="building_front"] / [label=="facade_1"] / [label=="facade_1_front"] > -> roundShape("front", "outside", 0.33, 30, "main_front", "vertical")};
 
 # C6: Selecting region and performing extrusion
-{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (1, 2, 3)] [colIdx in (3, 4)] [::groupRegions()] > -> addVolume("entrance_2", "building_front", 3, ["entrance_2_front", "entrance_2_left", "entrance_2_right"])};
+{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (1, 2, 3)] [colIdx in (3, 4)] [::groupRegions()] > -> addVolume("facade_2", "building_front", 3, ["facade_2_front", "facade_2_left", "facade_2_right"])};
 
 # C7: Applying roundShape deformation
-{< descendant() [label=="building"] / [label=="building_front"] / [label=="entrance_2"] / [label=="entrance_2_front"] > -> roundShape("front", "outside", 0.33, 30, "main_front", "vertical")};
+{< descendant() [label=="building"] / [label=="building_front"] / [label=="facade_2"] / [label=="facade_2_front"] > -> roundShape("front", "outside", 0.33, 30, "main_front", "vertical")};
 
 # C8: Selecting region and performing extrusion
-{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (2, 3)] [colIdx in (5, 6)] [::groupRegions()] > -> addVolume("entrance_3", "building_front", 3.5, ["entrance_3_front", "entrance_3_left", "entrance_3_right"])};
+{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (2, 3)] [colIdx in (5, 6)] [::groupRegions()] > -> addVolume("facade_3", "building_front", 3.5, ["facade_3_front", "facade_3_left", "facade_3_right"])};
 
 # C9: Applying roundShape deformation
-{< descendant() [label=="building"] / [label=="building_front"] / [label=="entrance_3"] / [label=="entrance_3_front"] > -> roundShape("front", "outside", 0.33, 30, "main_front", "vertical")};
+{< descendant() [label=="building"] / [label=="building_front"] / [label=="facade_3"] / [label=="facade_3_front"] > -> roundShape("front", "outside", 0.33, 30, "main_front", "vertical")};
 
 # C10: Selecting region and performing extrusion
-{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (1)] [colIdx in (5, 6)] [::groupRegions()] > -> addVolume("entrance_top", "building_front", 2, ["entrance_top_front", "entrance_top_left", "entrance_top_right"])};
+{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (1)] [colIdx in (5, 6)] [::groupRegions()] > -> addVolume("facade_top", "building_front", 2, ["facade_top_front", "facade_top_left", "facade_top_right"])};
 
 # C11: Applying roundShape deformation
-{< descendant() [label=="building"] / [label=="building_front"] / [label=="entrance_top"] / [label=="entrance_top_front"] > -> roundShape("front", "outside", 0.33, 30, "main_front", "vertical")};
+{< descendant() [label=="building"] / [label=="building_front"] / [label=="facade_top"] / [label=="facade_top_front"] > -> roundShape("front", "outside", 0.33, 30, "main_front", "vertical")};

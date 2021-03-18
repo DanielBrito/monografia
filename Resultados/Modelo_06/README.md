@@ -8,7 +8,7 @@ _label = "building"; width = 20; depth = 10; height = 10;_
 
 #### **_\#C2: Generating mass model_**
 
-_{<> -> createShape("building", width, depth, height)};_
+_{<> -> createShape(label, width, depth, height)};_
 
 \# GRIDS:
 
@@ -24,7 +24,7 @@ _{< descendant() [label=="building"] / [label=="building_right"] > -> createGrid
 
 #### **_\#C5: Selecting region and performing extrusion_**
 
-_{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)] [colIdx in (1, 2, 3, 4)] [::groupRegions()] > -> addVolume("south_1", "building_front", 6, ["south_1_front", "south_1_left", "south_1_right"])};_
+_{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (indexRange(10, 20))] [colIdx in (1, 2, 3, 4)] [::groupRegions()] > -> addVolume("south_1", "building_front", 6, ["south_1_front", "south_1_left", "south_1_right"])};_
 
 #### **_\#C6: Applying roundShape deformation_**
 
@@ -32,7 +32,7 @@ _{< descendant() [label=="building"] / [label=="building_front"] / [label=="sout
 
 #### **_\#C7: Selecting region and performing extrusion_**
 
-_{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)] [colIdx in (9, 10, 11, 12)] [::groupRegions()] > -> addVolume("south_2", "building_front", 6, ["south_2_front", "south_2_left", "south_2_right"])};_
+_{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (indexRange(10, 20))] [colIdx in (9, 10, 11, 12)] [::groupRegions()] > -> addVolume("south_2", "building_front", 6, ["south_2_front", "south_2_left", "south_2_right"])};_
 
 #### **_\#C8: Applying roundShape deformation_**
 
@@ -40,7 +40,7 @@ _{< descendant() [label=="building"] / [label=="building_front"] / [label=="sout
 
 #### **_\#C9: Selecting region and performing extrusion_**
 
-_{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)] [colIdx in (13)] [::groupRegions()] > -> addVolume("south_3", "building_front", 2, ["south_3_front", "south_3_left", "south_3_right"])};_
+_{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (indexRange(10, 20))] [colIdx in (13)] [::groupRegions()] > -> addVolume("south_3", "building_front", 2, ["south_3_front", "south_3_left", "south_3_right"])};_
 
 #### **_\#C10: Applying roundShape deformation_**
 
@@ -56,7 +56,7 @@ _{< descendant() [label=="building"] / [label=="building_front"] / [label=="sout
 
 #### **_\#C13: Selecting region and performing extrusion_**
 
-_{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)] [colIdx in (5, 6, 7, 8)] ::groupRegions()] > -> addVolume("south_5", "building_front", 2, ["south_5_front", "south_5_left", "south_5_right"])};_
+_{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (indexRange(5, 16))] [colIdx in (5, 6, 7, 8)] ::groupRegions()] > -> addVolume("south_5", "building_front", 2, ["south_5_front", "south_5_left", "south_5_right"])};_
 
 #### **_\#C14: Applying roundShape deformation_**
 
@@ -66,7 +66,7 @@ _{< descendant() [label=="building"] / [label=="building_front"] / [label=="sout
 
 #### **_\#C15: Selecting region and performing extrusion_**
 
-_{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (15, 16, 17, 18, 19, 20)] [colIdx in (1)] [::groupRegions()] > -> addVolume("east_1", "building_right", 2, ["east_1_front", "east_1_left", "east_1_right"])};_
+_{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (indexRange(15, 20))] [colIdx in (1)] [::groupRegions()] > -> addVolume("east_1", "building_right", 2, ["east_1_front", "east_1_left", "east_1_right"])};_
 
 #### **_\#C16: Applying roundShape deformation_**
 
@@ -74,7 +74,7 @@ _{< descendant() [label=="building"] / [label=="building_right"] / [label=="east
 
 #### **_\#C17: Selecting region and performing extrusion_**
 
-_{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (15, 16, 17, 18, 19, 20)] [colIdx in (10)] [::groupRegions()] > -> addVolume("east_2", "building_right", 2, ["east_2_front", "east_2_left", "east_2_right"])};_
+_{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (indexRange(15, 20))] [colIdx in (10)] [::groupRegions()] > -> addVolume("east_2", "building_right", 2, ["east_2_front", "east_2_left", "east_2_right"])};_
 
 #### **_\#C18: Applying roundShape deformation_**
 
@@ -82,7 +82,7 @@ _{< descendant() [label=="building"] / [label=="building_right"] / [label=="east
 
 #### **_\#C19: Selecting region and performing extrusion_**
 
-_{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)] [colIdx in (1)] [::groupRegions()] > -> addVolume("east_3", "building_right", 1.5, ["east_3_front", "east_3_left", "east_3_right"])};_
+_{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (indexRange(1, 14))] [colIdx in (1)] [::groupRegions()] > -> addVolume("east_3", "building_right", 1.5, ["east_3_front", "east_3_left", "east_3_right"])};_
 
 #### **_\#C20: Applying roundShape deformation_**
 
@@ -90,7 +90,7 @@ _{< descendant() [label=="building"] / [label=="building_right"] / [label=="east
 
 #### **_\#C21: Selecting region and performing extrusion_**
 
-_{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)] [colIdx in (10)] [::groupRegions()] > -> addVolume("east_4", "building_right", 1.5, ["east_4_front", "east_4_left", "east_4_right"])};_
+_{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (indexRange(1, 14))] [colIdx in (10)] [::groupRegions()] > -> addVolume("east_4", "building_right", 1.5, ["east_4_front", "east_4_left", "east_4_right"])};_
 
 #### **_\#C22: Applying roundShape deformation_**
 
@@ -98,7 +98,7 @@ _{< descendant() [label=="building"] / [label=="building_right"] / [label=="east
 
 #### **_\#C23: Selecting region and performing extrusion_**
 
-_{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (13, 14)] [colIdx in (2, 3, 4, 5, 6, 7, 8, 9)] [::groupRegions()] > -> addVolume("east_5", "building_right", 1.5, ["east_5_front", "east_5_left", "east_5_right"])};_
+_{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (13, 14)] [colIdx in (indexRange(2, 9))] [::groupRegions()] > -> addVolume("east_5", "building_right", 1.5, ["east_5_front", "east_5_left", "east_5_right"])};_
 
 #### **_\#C24: Applying roundShape deformation_**
 
@@ -106,7 +106,7 @@ _{< descendant() [label=="building"] / [label=="building_right"] / [label=="east
 
 #### **_\#C25: Selecting region and performing extrusion_**
 
-_{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (3, 4, 5, 6, 7, 8, 9, 10, 11, 12)] [colIdx in (2, 3, 4, 5, 6, 7, 8, 9)] [::groupRegions()] > -> addVolume("east_6", "building_right", 1.5, ["east_6_front", "east_6_left", "east_6_right"])};_
+_{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (indexRange(3, 12))] [colIdx in (indexRange(2, 9))] [::groupRegions()] > -> addVolume("east_6", "building_right", 1.5, ["east_6_front", "east_6_left", "east_6_right"])};_
 
 #### **_\#C26: Applying roundShape deformation_**
 

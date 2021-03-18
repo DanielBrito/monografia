@@ -2,7 +2,7 @@
 label = "building"; width = 3; depth = 3; height = 3;
 
 # C2: Generating mass model
-{<> -> createShape("building", width, depth, height)};
+{<> -> createShape(label, width, depth, height)};
 
 # GRIDS:
 
@@ -27,22 +27,22 @@ label = "building"; width = 3; depth = 3; height = 3;
 {< descendant() [label=="building"] / [label=="building_front"] / [label=="south_1"] / [label=="south_1_front"] > -> roundShape("top", "outside", 1, 30, "main_front", "vertical")};
 
 
-# C7: Selecting region and performing extrusion
+# C9: Selecting region and performing extrusion
 {< descendant() [label=="building"] / [label=="building_left"] / [label=="main_left_grid"] / [type=="cell"] [rowIdx in (1, 2, 3, 4, 5)] [colIdx in (1, 2, 3)] [::groupRegions()] > -> addVolume("west_1", "building_left", 2, ["west_1_front", "west_1_left", "west_1_right"])};
 
-# C8: Applying roundShape deformation
+# C10: Applying roundShape deformation
 {< descendant() [label=="building"] / [label=="building_left"] / [label=="west_1"] / [label=="west_1_front"] > -> roundShape("top", "outside", 1, 30, "main_left", "vertical")};
 
 
-# C7: Selecting region and performing extrusion
+# C11: Selecting region and performing extrusion
 {< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (1, 2, 3, 4, 5)] [colIdx in (1, 2, 3)] [::groupRegions()] > -> addVolume("east_1", "building_right", 2, ["east_1_front", "east_1_left", "east_1_right"])};
 
-# C8: Applying roundShape deformation
+# C12: Applying roundShape deformation
 {< descendant() [label=="building"] / [label=="building_right"] / [label=="east_1"] / [label=="east_1_front"] > -> roundShape("top", "outside", 1, 30, "main_right", "vertical")};
 
 
-# C7: Selecting region and performing extrusion
+# C13: Selecting region and performing extrusion
 {< descendant() [label=="building"] / [label=="building_back"] / [label=="main_back_grid"] / [type=="cell"] [rowIdx in (1, 2, 3, 4, 5)] [colIdx in (1, 2, 3)] [::groupRegions()] > -> addVolume("north_1", "building_back", 2, ["north_1_front", "north_1_left", "north_1_right"])};
 
-# C8: Applying roundShape deformation
+# C14: Applying roundShape deformation
 {< descendant() [label=="building"] / [label=="building_back"] / [label=="north_1"] / [label=="north_1_front"] > -> roundShape("top", "outside", 1, 30, "main_back", "vertical")};

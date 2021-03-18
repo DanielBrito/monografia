@@ -8,7 +8,7 @@ _label = "building"; width = 5; depth = 5; height = 5;_
 
 #### **_\#C2: Generating mass model_**
 
-_{<> -> createShape("building", width, depth, height)};_
+_{<> -> createShape(label, width, depth, height)};_
 
 \# GRIDS:
 

@@ -8,7 +8,7 @@ _label = "building"; width = 10; depth = 10; height = 10;_
 
 #### **_\#C2: Generating mass model_**
 
-_{<> -> createShape("building", width, depth, height)};_
+_{<> -> createShape(label, width, depth, height)};_
 
 \# GRIDS:
 
@@ -20,7 +20,7 @@ _{< descendant() [label=="building"] / [label=="building_front"] > -> createGrid
 
 #### **_\#C4: Selecting region and performing extrusion_**
 
-_{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)] [colIdx in (1, 2, 3)] [::groupRegions()] > -> addVolume("south_1", "building_front", 2, ["south_1_front", "south_1_left", "south_1_right"])};_
+_{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (indexRange(1, 10))] [colIdx in (1, 2, 3)] [::groupRegions()] > -> addVolume("south_1", "building_front", 2, ["south_1_front", "south_1_left", "south_1_right"])};_
 
 #### **_\#C5: Applying roundShape deformation_**
 
@@ -28,7 +28,7 @@ _{< descendant() [label=="building"] / [label=="building_front"] / [label=="sout
 
 #### **_\#C6: Selecting region and performing extrusion_**
 
-_{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)] [colIdx in (4, 5, 6)] [::groupRegions()] > -> addVolume("south_2", "building_front", 3.5, ["south_2_front", "south_2_left", "south_2_right"])};_
+_{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (indexRange(1, 10))] [colIdx in (4, 5, 6)] [::groupRegions()] > -> addVolume("south_2", "building_front", 3.5, ["south_2_front", "south_2_left", "south_2_right"])};_
 
 #### **_\#C7: Applying roundShape deformation_**
 
@@ -36,7 +36,7 @@ _{< descendant() [label=="building"] / [label=="building_front"] / [label=="sout
 
 #### **_\#C8: Selecting region and performing extrusion_**
 
-_{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (5, 6, 7, 8, 9, 10)] [colIdx in (7, 8, 9, 10)] [::groupRegions()] > -> addVolume("south_3", "building_front", 4, ["south_3_front", "south_3_left", "south_3_right"])};_
+_{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (indexRange(5, 10))] [colIdx in (7, 8, 9, 10)] [::groupRegions()] > -> addVolume("south_3", "building_front", 4, ["south_3_front", "south_3_left", "south_3_right"])};_
 
 #### **_\#C9: Applying roundShape deformation_**
 

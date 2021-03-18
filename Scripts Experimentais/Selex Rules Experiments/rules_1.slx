@@ -2,17 +2,17 @@
 label = "building"; width = 9; depth = 11; height = 5;
 
 # C2: Generating mass model
-{<> -> createShape("building", width, depth, height)};
+{<> -> createShape(label, width, depth, height)};
 
 # GRID:
 
 # C3: Adding virtual shape to the mass model
-{< descendant() [label=="building"] / [label=="building_front"] > -> createGrid("main_front_grid", 3, 6)};
+{< descendant() [label=="building"] / [label=="building_front"] > -> createGrid("main_front_grid", 3, 7)};
 
 # DEFORMATION:
 
 # C4: Selecting region and performing extrusion
-{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (2, 3)] [colIdx in (1, 2, 3)] [::groupRegions()] > -> addVolume("entrance", "building_front", 3, ["entrance_front", "entrance_left", "entrance_right"])};
+{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (2, 3)] [colIdx in (3, 4, 5)] [::groupRegions()] > -> addVolume("entrance", "building_front", 3, ["entrance_front", "entrance_left", "entrance_right"])};
 
 # C5: Applying roundShape deformation
-{< descendant() [label=="building"] / [label=="building_front"] / [label=="entrance"] / [label=="entrance_front"] > -> roundShape("front", "outside", 0.5, 30, "main_front", "vertical")};
+{< descendant() [label=="building"] / [label=="building_front"] / [label=="entrance"] / [label=="entrance_front"] > -> roundShape("front", "outside", 0.42, 30, "main_front", "vertical")};

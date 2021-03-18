@@ -2,7 +2,7 @@
 label = "building"; width = 15; depth = 8; height = 5;
 
 # C2: Generating mass model
-{<> -> createShape("building", width, depth, height)};
+{<> -> createShape(label, width, depth, height)};
 
 # GRID:
 
@@ -12,13 +12,13 @@ label = "building"; width = 15; depth = 8; height = 5;
 # DEFORMATION:
 
 # C4: Selecting region and performing extrusion
-{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (1, 2, 3, 4, 5, 6)] [colIdx in (1)] [::groupRegions()] > -> addVolume("entrance_1", "building_front", 2, ["entrance_1_front", "entrance_1_left", "entrance_1_right"])};
+{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (indexRange(1, 6))] [colIdx in (1)] [::groupRegions()] > -> addVolume("entrance_1", "building_front", 2, ["entrance_1_front", "entrance_1_left", "entrance_1_right"])};
 
 # C5: Applying roundShape deformation
 {< descendant() [label=="building"] / [label=="building_front"] / [label=="entrance_1"] / [label=="entrance_1_front"] > -> roundShape("front", "outside", 0.14, 30, "main_front", "vertical")};
 
 # C6: Selecting region and performing extrusion
-{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (1, 2, 3, 4, 5, 6)] [colIdx in (3, 4, 5)] [::groupRegions()] > -> addVolume("entrance_2", "building_front", 4, ["entrance_2_front", "entrance_2_left", "entrance_2_right"])};
+{< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (indexRange(1, 6))] [colIdx in (3, 4, 5)] [::groupRegions()] > -> addVolume("entrance_2", "building_front", 4, ["entrance_2_front", "entrance_2_left", "entrance_2_right"])};
 
 # C7: Selecting region and performing extrusion
 {< descendant() [label=="building"] / [label=="building_front"] / [label=="main_front_grid"] / [type=="cell"] [rowIdx in (4, 5, 6)] [colIdx in (6, 7)] [::groupRegions()] > -> addVolume("entrance_3", "building_front", 4, ["entrance_3_front", "entrance_3_left", "entrance_3_right"])};

@@ -8,7 +8,7 @@ _label = "building"; width = 5; depth = 5; height = 10;_
 
 #### **_\#C2: Generating mass model_**
 
-_{<> -> createShape("building", width, depth, height)};_
+_{<> -> createShape(label, width, depth, height)};_
 
 \# GRIDS:
 
@@ -52,7 +52,7 @@ _{< descendant() [label=="building"] / [label=="building_right"] / [label=="east
 
 #### **_\#C12: Selecting region and performing extrusion_**
 
-_{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (2, 3, 4, 5, 6, 7, 8, 9, 10)] [colIdx in (4, 5)] [::groupRegions()] > -> addVolume("east_5", "building_right", 2, ["east_5_front", "east_5_left", "east_5_right"])};_
+_{< descendant() [label=="building"] / [label=="building_right"] / [label=="main_right_grid"] / [type=="cell"] [rowIdx in (indexRange(2, 10))] [colIdx in (4, 5)] [::groupRegions()] > -> addVolume("east_5", "building_right", 2, ["east_5_front", "east_5_left", "east_5_right"])};_
 
 #### **_\#C13: Applying roundShape deformation_**
 
