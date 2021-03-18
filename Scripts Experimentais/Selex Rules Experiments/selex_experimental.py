@@ -143,6 +143,9 @@ class Construction(Node):
 # Defining shape tree root node as a global variable:
 root = Node("root", None, None)
 
+# Defining aliases for axis:
+x, y, z = 0, 1, 2
+
 
 ########################################################################################################
 # $ UTILITY FUNCTIONS
@@ -201,32 +204,32 @@ def selectNode(root, labels):
 # Used for positioning main virtual shape over proper model side:
 def placeMainVirtualShape(side, virtualShape):
     # Always rotate 90 degrees at y-axis:
-    bpy.context.object.rotation_euler[1] = 1.5708
+    bpy.context.object.rotation_euler[y] = 1.5708
     
     if "front" in side.getLabel():
-        # Rotating properly at z-axis (90 deg):
-        bpy.context.object.rotation_euler[0] = 1.5708
+        # Rotating properly at x-axis (90 deg):
+        bpy.context.object.rotation_euler[x] = 1.5708
         
         # Positioning virtual shape over the proper side at y-axis:
-        bpy.context.object.location[1] = -side.getParent().getDimY() / 2
+        bpy.context.object.location[y] = -side.getParent().getDimY() / 2
         
     elif "back" in side.getLabel():    
-        # Rotating properly at z-axis (-90 deg):
-        bpy.context.object.rotation_euler[0] = -1.5708
+        # Rotating properly at x-axis (-90 deg):
+        bpy.context.object.rotation_euler[x] = -1.5708
         
         # Positioning virtual shape over the proper side at y-axis:
-        bpy.context.object.location[1] = side.getParent().getDimY() / 2
+        bpy.context.object.location[y] = side.getParent().getDimY() / 2
         
     elif "left" in side.getLabel():
         # Rotating properly at z-axis (180 deg):
-        bpy.context.object.rotation_euler[2] = 3.14159
+        bpy.context.object.rotation_euler[z] = 3.14159
         
-        # Positioning virtual shape over the proper side at y-axis:
-        bpy.context.object.location[0] = -side.getParent().getDimX() / 2
+        # Positioning virtual shape over the proper side at x-axis:
+        bpy.context.object.location[x] = -side.getParent().getDimX() / 2
     
     elif "right" in side.getLabel():        
-        # Positioning virtual shape over the proper side at y-axis:
-        bpy.context.object.location[0] = side.getParent().getDimX() / 2
+        # Positioning virtual shape over the proper side at x-axis:
+        bpy.context.object.location[x] = side.getParent().getDimX() / 2
         
      
 # Used for selecting cells from virtual shape in order to apply extrusion:
@@ -649,9 +652,6 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
     ##     print("vertex index = ", v.index)
     ##     print("vertex coordinate = ", v.co)
         
-    # Changing the axis for an alias:
-    x, y, z = 0, 1, 2
-    
     if sideReference == "main_front":
         # Round left:
         if type == "left":
@@ -2182,7 +2182,7 @@ def computeInstructions(rules):
             loadSettings(rule)
             
         if "createShape" in rule:
-            print("# createShape: Ran right after loadSettings()")
+            print("# createShape: Ran after loadSettings()")
         
         if "createGrid" in rule:
             loadCreateGrid(rule)
