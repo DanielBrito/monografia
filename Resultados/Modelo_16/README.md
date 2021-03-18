@@ -6,7 +6,7 @@
 
 _label = "building"; width = 9; depth = 11; height = 20;_
 
-#### **\*\#C2: Generating mass model\*\*\*\***
+#### **_#C2: Generating mass model_**
 
 _{<> -> createShape("building", width, depth, height)};_
 
