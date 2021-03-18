@@ -19,7 +19,7 @@ INPUT_FILE_NAME = "rules_1.slx"
 HIDE_VIRTUAL_SHAPES = True
 
 # Flag to remove 'grid' shapes after model generation:
-REMOVE_VIRTUAL_SHAPES = True
+REMOVE_VIRTUAL_SHAPES = False
 
 
 ########################################################################################################
@@ -293,7 +293,8 @@ def duplicateShape(originalShapeLabel):
 # Used for reseting the scene and cleaning the console after each execution:
 def resetScene():    
     # Changing Mode:
-    ## bpy.ops.object.mode_set(mode = "OBJECT")
+    if bpy.context.active_object.mode == 'EDIT':
+            bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
     
     # Deleting created objects if they exist:
     if len(bpy.context.scene.objects) > 0:
@@ -1904,7 +1905,10 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             elif direction == "inside":
                 bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
             
-            bpy.ops.object.mode_set(mode = 'OBJECT')
+    ## Deselecting everything:
+    bpy.ops.object.mode_set(mode = 'EDIT')
+    bpy.ops.mesh.select_all(action = 'DESELECT')
+    bpy.ops.object.mode_set(mode = 'OBJECT')
 
         
 ########################################################################################################
@@ -2244,6 +2248,7 @@ def main():
     # Checking if user decided to remove the virtual shapes:
     if REMOVE_VIRTUAL_SHAPES:
         removeVirtualShapes()
+    
 
 if __name__ == "__main__":
     main()
