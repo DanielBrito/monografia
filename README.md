@@ -32,12 +32,8 @@ Modeling virtual environments is an arduous task, and might require great time a
 
 O arquivo da apresentação do TCC I pode ser encontrado [aqui](https://github.com/DanielBrito/monografia/blob/main/Apresenta%C3%A7%C3%A3o%20-%20TCC%20I.pdf).
 
-### 👀 Prévia
-
-Variações de modelos produzidos pela solução proposta:
-
-![ExecuçãoScriptExperimental](preview.gif)
+---
 
 ### ☑️ Resultados
 
-Alguns outros resultados podem ser encontrados [aqui](Resultados).
+A imagem abaixo ilustra variações de modelos produzidos pela solução proposta. Exemplos mais detalhados podem ser encontrados [aqui](Resultados).
