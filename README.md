@@ -34,6 +34,8 @@ O arquivo da apresentação do TCC I pode ser encontrado [aqui](https://github.c
 
 ---
 
-### ☑️ Resultados
+### ☑️ Prévia
 
-A imagem abaixo ilustra variações de modelos produzidos pela solução proposta. Exemplos mais detalhados podem ser encontrados [aqui](Resultados).
+A imagem abaixo ilustra variações de modelos produzidos pela solução proposta. Exemplos mais detalhados podem ser encontrados em [Resultados](Resultados).
+
+![Exemplos de modelos](preview.gif)
