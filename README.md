@@ -44,4 +44,4 @@ A imagem abaixo ilustra variações de modelos produzidos pela solução propost
 
 ### 🐞 Bugs
 
-Este é um projeto open-source. Para reportar bugs, sinta-se à vontade para abrir [issues](https://github.com/DanielBrito/monografia/issues), se possível, demonstrando qual a regra utilizada na geração do modelo desejado. Sugestões de melhorias também são bem-vindas.
+Este é um projeto open source. Sinta-se à vontade para abrir [issues](https://github.com/DanielBrito/monografia/issues) e reportar bugs, se possível, demonstrando qual a regra utilizada na geração do modelo desejado. Sugestões de melhorias também são bem-vindas.
