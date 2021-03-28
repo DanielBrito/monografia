@@ -39,3 +39,9 @@ O arquivo da apresentação do TCC I pode ser encontrado [aqui](https://github.c
 A imagem abaixo ilustra variações de modelos produzidos pela solução proposta. Exemplos mais detalhados podem ser encontrados em [Resultados](Resultados).
 
 ![Exemplos de modelos](preview.gif)
+
+---
+
+### 🐞 Bugs
+
+Este é um projeto open-source. Para reportar bugs, sinta-se à vontade para abrir [issues](https://github.com/DanielBrito/monografia/issues), se possível, demonstrando qual a regra utilizada na geração do modelo desejado. Sugestões de melhorias também são bem-vindas.
