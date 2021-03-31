@@ -1,4 +1,26 @@
-\chapter{Conclusões e Trabalhos Futuros}
-\label{chap:conclusoes-e-trabalhos-futuros}
+\chapter{Conclusão}
+\label{chap:conclusoes}
 
-TO-DO
+Neste capítulo, serão apresentadas considerações acerca do que foi desenvolvido, bem como algumas questões em aberto que podem ser abordadas em trabalhos futuros.
+
+\section{Considerações}
+\label{sec:consideracoes}
+
+No decorrer do Capítulo \ref{cap:introducao}, contextualizou-se o cenário em que a modelagem procedural é aplicada, apresentando também suas vantagens e desvantagens. Então, nos Capítulos \ref{cap:fundamentacao-teorica} e \ref{cap:trabalhos-correlatos}, buscou-se descrever alguns conceitos e técnicas fundamentais para o entendimento da proposta apresentada no Capítulo \ref{chap:proposta}. Por fim, no Capítulo \ref{chap:resultados}, foram ilustrados alguns resultados obtidos por meio da estratégia desenvolvida, a qual é pioneira no que se refere à geração procedural de modelos arquiteturais com geometria arredondada utilizando \textit{Selection Expressions}, o que representa um avanço na área, ainda mais porque integra-se com o Blender, uma poderosa ferramenta \textit{open source} de modelagem.
+
+Entre os diferenciais da solução proposta está a possibilidade da geração de modelos no formato \textit{low poly}, priorizando o grau de desempenho ao invés do realismo, e também a possibilidade de edição do resultado final, através das ferramentas disponíveis no próprio Blender, após a geração do modelo por meio das regras definidas.
+
+Além disto, outra característica a se destacar é o fato deste trabalho ter como resultado um projeto \textit{open source}. Assim, pessoas interessadas podem contribuir com melhorias a partir do código-fonte e documentação, disponíveis no GitHub \footnote{\href{https://github.com/DanielBrito/monografia}{https://github.com/DanielBrito/monografia}}.
+
+\section{Trabalhos futuros}
+\label{sec:trabalhos_futuros}
+
+O presente trabalho teve como foco a utilização de \textit{Selection Expressions} para geração procedural de modelos de massa. Contudo, baseado nas especificações da \gls{SELEX}, ainda existem diversas funcionalidades a serem exploradas. Portanto, destacam-se como tópicos para trabalhos futuros:
+
+\begin{itemize}
+    \item Manipulação da forma virtual em relação à região arredondada, visando uma representação na árvore de formas;
+    \item Disposição de elementos como janelas e portas, através das formas virtuais, bem como a inclusão de telhados;
+    \item Geração estocástica de múltiplos modelos, a fim de produzir um ambiente urbano;
+    \item Definição de atributos de \textit{design}, como cor e textura;
+    \item Criação de \textit{add-on} para simplificar a leitura do arquivo que contém as regras.
+\end{itemize}
