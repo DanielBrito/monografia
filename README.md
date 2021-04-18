@@ -6,9 +6,21 @@ Trabalho de Conclusão de Curso apresentado ao Curso de Graduação em Ciência 
 
 ### Orientação
 
-**Orientador:** Msc. Arnaldo Barreto
+**Orientador:** Me. Arnaldo Barreto [[Lattes]](http://lattes.cnpq.br/1606649864930891)
 
-**Coorientador:** Msc. Ítalo Ribeiro
+**Coorientador:** Me. Ítalo Ribeiro [[Lattes]](http://lattes.cnpq.br/9204463813833604)
+
+### Banca
+
+- **TCC I:**
+
+  - Prof. Me. Lisieux Marie M. dos Santos Andrade (UFC - Campus Crateús) [[Lattes]](http://lattes.cnpq.br/8824525263721786)
+  - Prof. Dr. Markos Oliveira Freitas (UFC - Campus Quixadá) [[Lattes]](http://lattes.cnpq.br/2928195010235502)
+
+- **TCC II:**
+
+  - Prof. Me. Lisieux Marie M. dos Santos Andrade (UFC - Campus Crateús) [[Lattes]](http://lattes.cnpq.br/8824525263721786)
+  - Prof. Dr. Joaquim Bento Cavalcante Neto (UFC - Campus Pici) [[Lattes]](http://lattes.cnpq.br/0866205347972203)
 
 ---
 
@@ -28,9 +40,21 @@ Modeling virtual environments is an arduous task, and might require great time a
 
 ---
 
+### 📃 Trabalho
+
+O arquivo prévio do trabalho final pode ser encontrado [aqui](https://github.com/DanielBrito/monografia/blob/main/TCC%20-%20Daniel%20Brito/TCCII_Daniel_Brito.pdf).
+
+---
+
 ### ▶️ Apresentação
 
-O arquivo da apresentação do TCC I pode ser encontrado [aqui](https://github.com/DanielBrito/monografia/blob/main/Apresenta%C3%A7%C3%A3o%20-%20TCC%20I.pdf).
+Os slides das apresentações de TCC I e II podem ser encontrados [aqui](https://github.com/DanielBrito/monografia/blob/main/Apresentacoes).
+
+---
+
+### 📺 Defesa
+
+O vídeo da defesa pode ser encontrado no [YouTube](https://www.youtube.com/watch?v=oTeyrTvo4-s).
 
 ---
 
