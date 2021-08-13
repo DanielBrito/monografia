@@ -753,7 +753,7 @@ Para evidenciar a simplicidade com que as regiões de uma fachada são represent
 \begin{figure}[h!]
 	\centering
 	\captionsetup{width=15cm}
-	\Caption{\label{fig:arvore_cga_selex} Exemplo da árvore de formas gerada pela \textit{CGA Shape} em (a), e pela \textit{SELEX} em (b), com base na fachada (c).}
+	\Caption{\label{fig:arvore_cga_selex} Exemplo da árvore de formas gerada pela \textit{SELEX} em (a), e pela \textit{CGA Shape} em (b), com base na fachada (c).}
 	\UFCfig{}{
 		\includegraphics[width=15cm]{figuras/arvore_cga_selex.png}
 	}
@@ -831,8 +831,6 @@ Nas Figuras \ref{fig:exemplo_selex} e \ref{fig:exemplo_selex_arvore}, \citeonlin
 	{\Fonte{Adaptado de \cite{wonka2018}}}	
 \end{figure}
 
-\vspace{1cm}
-
 Por fim, após a apresentação das especificações, dos exemplos ilustrativos, e da análise do desempenho da \textit{SELEX} em relação às suas precursoras, pode-se perceber que tal técnica representa um grande avanço no campo da modelagem procedural de edifícios. Assim, na próxima seção, será abordado o conceito de deformação, bem como sua relação com a modelagem procedural.
 
 \newpage
@@ -841,12 +839,6 @@ Por fim, após a apresentação das especificações, dos exemplos ilustrativos,
 \label{sec:deformacao}
 
 No campo da Física, a deformação de uma estrutura é qualquer mudança da configuração geométrica do corpo que leve a uma variação da sua forma ou das suas dimensões, após a aplicação de uma ação externa \cite{truesdell1992}. Na área da Computação Gráfica, por sua vez, a modelagem de sólidos é uma das técnicas essenciais utilizadas em modeladores 3D comuns, como Maya, Rhinoceros e Blender, onde a modificação dos objetos é realizada, frequentemente, por meio da deformação de forma livre \cite{jana2017}.
-
-%Baseado neste contexto, a próxima seção é voltada para uma breve apresentação de algumas técnicas de deformação existentes. 
-
-% Pois não existe outra subseção
-%\subsection{Técnicas de deformação}
-%\label{sec:tecnicas_deformacao}
 
 Idealizada por \citeonline{sedeberg1986}, a deformação de forma livre é uma transformação do espaço. Nela, é definida uma grade regular de pontos de controle, os quais podem ser descritos por uma combinação linear. Ao deslocar estes pontos de controle, uma deformação do espaço é alcançada. Geralmente, estes pontos de controle são espaçados regularmente na caixa delimitadora do elemento a ser deformado, conforme ilustrado na Figura \ref{fig:sedeberg}.
 
@@ -928,6 +920,7 @@ As \textit{deformation grammars}, por sua vez, foram introduzidas por \citeonlin
 	{\Fonte{\cite{vimont2017}}}	
 \end{figure}
 
-\vspace{1cm}
+\section{Considerações finais}
+\label{sec:consideracoes_capitulo_2}
 
 Neste capítulo, foram apresentadas algumas das principais técnicas que surgiram no decorrer da história para geração procedural de edifícios, abordando suas características, alguns exemplos de aplicação, e também suas limitações. Por meio de uma análise comparativa, percebeu-se que o emprego de \textit{Selection Expressions}, a mais recente das abordagens, apresenta diversas vantagens em relação às suas precursoras, \textit{CGA Shape} e \textit{CGA++}. Contudo, mesmo com a introdução de tais melhorias pela \gls{SELEX}, ainda existem modelos que estão além da sua capacidade de modelagem, como é o caso de edifícios com arquitetura arredondada. Assim, visando contextualizar este cenário, no próximo capítulo, serão abordadas algumas técnicas voltadas para a resolução de questões similares.

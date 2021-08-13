@@ -109,16 +109,16 @@ Nesta seção, além da descrição de alguns detalhes de implementação dos m�
 \subsubsection{Imported libraries}
 \label{sec:imports}
 
-Informações disponibilizadas pela \citeonline{python} e \citeonline{blender} acerca das bibliotecas utilizadas no presente trabalho:
+A seguir, são apresentadas as informações disponibilizadas pela \citeonline{python} e \citeonline{blender} acerca das bibliotecas utilizadas no presente trabalho:
 
 \begin{itemize}
-    \item \textbf{\texttt{bpy}}: Fornece acesso aos dados, classes e funções do Blender, amplamente utilizadas no processo de criação e modificação dos objetos;
+    \item \textbf{\texttt{bpy}}: fornece acesso aos dados, classes e funções do Blender, amplamente utilizadas no processo de criação e modificação dos objetos;
     
-    \item \textbf{\texttt{math}}: Fornece acesso às funções matemáticas, utilizadas para manipulação de valores numéricos;
+    \item \textbf{\texttt{math}}: fornece acesso às funções matemáticas, utilizadas para manipulação de valores numéricos;
     
-    \item \textbf{\texttt{os}}: Fornece métodos para utilização de funcionalidades do sistema operacional, como o acesso ao diretório onde se encontra o arquivo com as regras que definem os modelos;
+    \item \textbf{\texttt{os}}: fornece métodos para utilização de funcionalidades do sistema operacional, como o acesso ao diretório onde se encontra o arquivo com as regras que definem os modelos;
     
-    \item \textbf{\texttt{re}}: Fornece operações para correspondência de expressões regulares, utilizadas para extração das informações contidas nas regras, obtidas a partir do arquivo de entrada.
+    \item \textbf{\texttt{re}}: fornece operações para correspondência de expressões regulares, utilizadas para extração das informações contidas nas regras, obtidas a partir do arquivo de entrada.
 \end{itemize}
 
 \subsubsection{Classes Module}
@@ -131,7 +131,7 @@ Com base no paradigma de Programação Orientada a Objetos, a estrutura é organ
 	\captionsetup{width=15cm}
 	\Caption{\label{fig:diagrama_classes} Diagrama de classes referente à estrutura da árvore de formas.}	
 	\UFCfig{}{
-		\includegraphics[width=10cm]{figuras/Classes.png}
+		\includegraphics[width=9cm]{figuras/Classes.png}
 	}
 	{\Fonte{Próprio autor}}	
 \end{figure}
@@ -144,17 +144,17 @@ Neste caso, \texttt{Node} é a representação genérica de um nó da árvore, j
 Definição das principais funções utilitárias que auxiliam no processo de geração dos modelos, por meio da integração com as \textit{actions}:
 
 \begin{itemize}
-    \item \textbf{\texttt{create3DMass}}: Invocada durante o processo de execução da \textit{action} \texttt{createShape}, adicionando o modelo de massa padrão, e redimensionando-o de acordo com as configurações definidas nas regras iniciais, por meio dos valores de \texttt{width}, \texttt{depth} e \texttt{height};
+    \item \textbf{\texttt{create3DMass}}: invocada durante o processo de execução da \textit{action} \texttt{createShape}, adiciona o modelo de massa padrão, e redimensionando-o de acordo com as configurações definidas nas regras iniciais, por meio dos valores de \texttt{width}, \texttt{depth} e \texttt{height};
     
-    \item \textbf{\texttt{vert}} e \textbf{\texttt{face}}: Utilizadas em conjunto durante o processo de execução da \textit{action} \texttt{createGrid}, atuando no posicionamento dos vértices e na criação das faces;
+    \item \textbf{\texttt{vert}} e \textbf{\texttt{face}}: utilizadas em conjunto durante o processo de execução da \textit{action} \texttt{createGrid}, atuando no posicionamento dos vértices e na criação das faces;
     
-    \item \textbf{\texttt{selectNode}}: Invocada para recuperar um nó da árvore de formas, com base nos \textit{labels} presentes nas regras;
+    \item \textbf{\texttt{selectNode}}: invocada para recuperar um nó da árvore de formas, com base nos \textit{labels} presentes nas regras;
     
-    \item \textbf{\texttt{placeVirtualShape}}: Trabalha em conjunto com a \textit{action} \texttt{createGrid}, por meio do posicionamento da forma virtual sobre uma determinada face do modelo de massa;
+    \item \textbf{\texttt{placeVirtualShape}}: trabalha em conjunto com a \textit{action} \texttt{createGrid}, por meio do posicionamento da forma virtual sobre uma determinada face do modelo de massa;
     
-    \item \textbf{\texttt{selectToBeVolume}} e \textbf{\texttt{duplicateShape}}: Utilizadas em conjunto para selecionar uma sub-região de uma face do modelo, através de uma forma virtual, a fim de realizar uma extrusão por meio da \textit{action} \texttt{addVolume};
+    \item \textbf{\texttt{selectToBeVolume}} e \textbf{\texttt{duplicateShape}}: utilizadas em conjunto para selecionar uma sub-região de uma face do modelo, através de uma forma virtual, a fim de realizar uma extrusão por meio da \textit{action} \texttt{addVolume};
     
-    \item \textbf{\texttt{indexRange}}: Utilizada para selecionar um grande intervalo de células, tornando a regra mais sucinta. Conforme especificado na \gls{SELEX}, recebe um índice inicial, um índice final, e retorna como resultado uma lista com os valores no intervalo. Por exemplo, \texttt{indexRange(1,\,5)}, retorna a lista \texttt{[1,2,3,4,5]}.
+    \item \textbf{\texttt{indexRange}}: utilizada para selecionar um grande intervalo de células, tornando a regra mais sucinta. Conforme especificado na \gls{SELEX}, recebe um índice inicial, um índice final, e retorna como resultado uma lista com os valores no intervalo. Por exemplo, \texttt{indexRange(1,\,5)}, retorna a lista \texttt{[1,2,3,4,5]}.
 \end{itemize}
 
 Algumas outras funções também presentes neste módulo são relacionadas ao gerenciamento da cena, como \texttt{resetScene}, que remove os objetos antes da execução das regras; \texttt{hideVirtualShapes}, que oculta as formas virtuais ao final da geração; e \texttt{removeVirtualShapes}, que remove as formas virtuais, com o propósito de gerar um objeto final com menos polígonos, reduzindo o tamanho do arquivo do modelo.
@@ -255,24 +255,24 @@ Como proposta, o presente trabalho introduz uma nova \textit{action}, com objeti
 
 \vspace{0.3cm}
 
-\noindent onde cada um dos parâmetros recebidos desempenha um papel específico:
+\noindent em que cada um dos parâmetros recebidos desempenha um papel específico:
 
 \vspace{0.3cm}
 
 \begin{enumerate}
-    \item \label{itm:type} \textbf{\textit{type}}: Define o tipo de arredondamento, podendo ser classificado como \textit{front}, \textit{left}, \textit{right}, \textit{top} ou \textit{bottom} (Figura \ref{fig:round_type});
+    \item \label{itm:type} \textbf{\textit{type}}: define o tipo de arredondamento, podendo ser classificado como \textit{front}, \textit{left}, \textit{right}, \textit{top} ou \textit{bottom} (Figura \ref{fig:round_type});
     
-    \item \label{itm:direction} \textbf{\textit{direction}}: Define a direção do arredondamento, podendo ser classificada como \textit{outside} ou \textit{inside} (Figura \ref{fig:round_direction});
+    \item \label{itm:direction} \textbf{\textit{direction}}: define a direção do arredondamento, podendo ser classificada como \textit{outside} ou \textit{inside} (Figura \ref{fig:round_direction});
     
-    \item \label{itm:roundingDegree} \textbf{\textit{roundingDegree}}: Representa o grau de arredondamento, podendo ser obtido através da divisão do número de colunas selecionadas pela quantidade total de colunas da grade. O mesmo cálculo vale para operações em termos de linhas, visando um arredondamento na horizontal. Por exemplo, na Figura \ref{fig:rules_1_c4}, o modelo possui uma forma virtual com 3 linhas e 7 colunas na região frontal. Portanto, para realizar uma operação de arredondamento vertical na região das colunas 3, 4 e 5, o valor ideal do parâmetro \textit{roundingDegree} é dado por $3/7=0.42$, podendo ainda ser reduzido, a fim de produzir um arredondamento menos acentuado (Figura \ref{fig:round_roundingDegree});
+    \item \label{itm:roundingDegree} \textbf{\textit{roundingDegree}}: representa o grau de arredondamento, podendo ser obtido através da divisão do número de colunas selecionadas pela quantidade total de colunas da grade. O mesmo cálculo vale para operações em termos de linhas, visando um arredondamento na horizontal. Por exemplo, na Figura \ref{fig:rules_1_c4}, o modelo possui uma forma virtual com 3 linhas e 7 colunas na região frontal. Portanto, para realizar uma operação de arredondamento vertical na região das colunas 3, 4 e 5, o valor ideal do parâmetro \textit{roundingDegree} é dado por $3/7=0.42$, podendo ainda ser reduzido, a fim de produzir um arredondamento menos acentuado (Figura \ref{fig:round_roundingDegree});
     
-    \item \label{itm:segments} \textbf{\textit{segments}}: Representa a quantidade de novos segmentos (faces) a serem criados no processo de deformação da região. Portanto, quanto mais segmentos, maior o grau de realismo. Contudo, também aumenta-se o custo computacional para geração do modelo. É importante ressaltar que deformações do tipo \textit{front} geram o dobro de segmentos, uma vez que atuam nas regiões esquerda e direita, ou inferior e superior, simultaneamente (Figura \ref{fig:round_segments});
+    \item \label{itm:segments} \textbf{\textit{segments}}: representa a quantidade de novos segmentos (faces) a serem criados no processo de deformação da região. Portanto, quanto mais segmentos, maior o grau de realismo. Contudo, também aumenta-se o custo computacional para geração do modelo. É importante ressaltar que deformações do tipo \textit{front} geram o dobro de segmentos, uma vez que atuam nas regiões esquerda e direita, ou inferior e superior, simultaneamente (Figura \ref{fig:round_segments});
     
-    \item \label{itm:sideReference} \textbf{\textit{sideReference}}: Referência da direção para qual o vetor normal da região está voltado, podendo assumir valores \textit{main\_front}, \textit{main\_back}, \textit{main\_left} ou \textit{main\_right}, uma vez que a consulta de vértices para operações na região frontal e posterior são efetuadas em relação ao eixo x, mas em operações laterais, utiliza-se como referência o eixo y (Figura \ref{fig:round_sideReference});
+    \item \label{itm:sideReference} \textbf{\textit{sideReference}}: referência da direção para qual o vetor normal da região está voltado, podendo assumir valores \textit{main\_front}, \textit{main\_back}, \textit{main\_left} ou \textit{main\_right}, uma vez que a consulta de vértices para operações na região frontal e posterior são efetuadas em relação ao eixo x, mas em operações laterais, utiliza-se como referência o eixo y (Figura \ref{fig:round_sideReference});
     
-    \item \label{itm:axis} \textbf{\textit{axis}}: Definido para operações de arredondamento cujo \textit{type} possui valor \textit{front}, podendo ser classificado como \textit{vertical} ou \textit{horizontal} (Figura \ref{fig:round_axis});
+    \item \label{itm:axis} \textbf{\textit{axis}}: definido para operações de arredondamento cujo \textit{type} possui valor \textit{front}, podendo ser classificado como \textit{vertical} ou \textit{horizontal} (Figura \ref{fig:round_axis});
     
-    \item \label{itm:insideRounding} \textbf{\textit{insideRounding}}: Define o grau de arredondamento interno, sendo $0.05$ por padrão. A diminuição gradativa deste valor, faz a região interna se aproximar cada vez mais de um ângulo reto (Figura \ref{fig:round_insideRounding}).
+    \item \label{itm:insideRounding} \textbf{\textit{insideDegree}}: define o grau de arredondamento interno, sendo $0.05$ por padrão. A diminuição gradativa deste valor, faz a região interna se aproximar cada vez mais de um ângulo reto (Figura \ref{fig:round_insideRounding}).
 \end{enumerate}
 
 \vspace{0.3cm}
@@ -369,7 +369,7 @@ A seguir, serão apresentados outros exemplos ilustrativos com variações de va
 \begin{figure}[ht!]
 	\centering
 	\captionsetup{width=15cm}
-	\Caption{\label{fig:round_insideRounding} Deformação lateral (direita) de um modelo de massa em forma de cubo, possuindo uma grade virtual com apenas uma linha e uma coluna, a partir de diferentes valores de (\ref{itm:insideRounding}) \textit{insideRounding}.}
+	\Caption{\label{fig:round_insideRounding} Deformação lateral (direita) de um modelo de massa em forma de cubo, possuindo uma grade virtual com apenas uma linha e uma coluna, a partir de diferentes valores de (\ref{itm:insideRounding}) \textit{insideDegree}.}
 	\UFCfig{}{
 		\includegraphics[width=15cm]{figuras/round_insideRounding.png}
 	}
@@ -401,6 +401,7 @@ No \textit{File Module}, são especificadas as instruções para leitura do arqu
 
 No \textit{Execution Module},  é definida a função de inicialização \texttt{main}, utilizada para invocar algumas funções auxiliares, como \texttt{resetScene} e \texttt{readFile}, ou ainda \texttt{hideVirtualShapes} e \texttt{removeVirtualShapes}, se as variáveis \texttt{HIDE\_VIRTUAL\_SHAPES} e \texttt{REMOVE\_VIRTUAL\_SHAPES} possuírem valor \texttt{True}, respectivamente.
 
-\vspace{1cm}
+\section{Considerações finais}
+\label{sec:consideracoes_capitulo_4}
 
 Este capítulo descreveu a problemática e algumas das principais características de implementação do presente trabalho. No próximo capítulo, serão apresentados modelos mais elaborados e uma breve análise estatística da solução proposta.

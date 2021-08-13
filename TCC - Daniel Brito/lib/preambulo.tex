@@ -10,24 +10,48 @@
 %%                                                   %%
 %%            Ednardo Moreira Rodrigues              %%
 %%       (Doutor em Engenharia Elétrica - UFC)       %%
+%%(Coord. do Grupo de Astronomia da Seara da Ciência)%%
 %%                      &                            %%
 %%            Alan Batista de Oliveira               %%
 %%           (Engenheiro Eletricista - UFC)          %%
 %%                                                   %%
-%% Revisão:                                          %%
+%% Consultoria Bibliotecária                         %%
+%%                                                   %%
+%%  Versão 2016 - ShareLaTeX:                        %% 
 %%                                                   %%
 %% - Francisco Edvander Pires Santos;                %%
 %% - Juliana Soares Lima;                            %%
 %% - Izabel Lima dos Santos;                         %%
-%% - Kalline Yasmin Soares Feitosa.                  %%
+%% - Kalline Yasmin Soares Feitosa;                  %%
+%% - Eliene Maria Vieira de Moura.                   %%
+%%                                                   %% 
+%%  Versão 2019 - Overleaf:                          %%
+%%                                                   %%
+%%  Biblioteca de Ciências Humanas:                  %%
+%% - Francisco Edvander Pires Santos;                %%
+%% - Juliana Soares Lima;                            %%
 %% - Eliene Maria Vieira de Moura;                   %%
+%% - Edmundo Moreira de Sousa Filho.                 %%
+%%                                                   %%
+%% Biblioteca da FEAAC:                              %%
+%% - Izabel Lima dos Santos;                         %%
+%% - Kalline Yasmin Soares Feitosa;                  %%
+%% - Kleber Lima dos Santos.                         %%
+%%                                                   %%
+%%  Biblioteca do Curso de Física:                   %%
+%% - Aline Rodrigues de Lima Mendes;                 %%
+%% - Maria de Jesus Silva dos Santos.                %%
+%%                                                   %%
+%%  Biblioteca Central do Campus do Pici:            %%
+%% - Raquel da Silva Nascimento.                     %%
+%% - Felipe Ferreira da Silva                        %%
 %%                                                   %%
 %% Colaboradores                                     %%
 %%                                                   %%
 %% -Andrei Bosco Bezerra Torres                      %% 
 %% (Professor - Sistemas e Mídias Digitais -         %%
 %% Instituto Universidade Virtual - UFC)             %%
-%% Tiago ALves Lima                                  %% 
+%% Tiago Alves Lima                                  %% 
 %% (Aluno de Mestrado em Eng. Elétrica)              %%
 %%                                                   %%
 %% Grande parte do trabalho foi adaptado do template %%
@@ -66,11 +90,11 @@
 %\usepackage{titlesec}                              % Permite alterar os títulos do documento
 \usepackage{tocloft}                                % Permite alterar a formatação do Sumário
 \usepackage{etoolbox}                               % Usado para alterar a fonte da Section no Sumário
-\usepackage[nogroupskip,nonumberlist]{glossaries}   % Permite fazer o glossario
+\usepackage[nogroupskip,nonumberlist,sort=use]{glossaries}   % Permite fazer o glossario. A apcao "sort=use" faz com que as siglas aparecam na lista conformse sao usadas no texto.
 
-\usepackage[font=singlespacing,format=plain,justification=justified,skip=0pt,singlelinecheck = false]{caption}            % Altera o comportamento da tag caption
+\usepackage[format=plain,justification=justified,skip=0pt,singlelinecheck = false,labelsep=colon]{caption}            % Altera o comportamento da tag caption. Algumas opcoes do caption so podem ser alternada no arquivo "antex2.cls, linhas 334 a 348.
 
-\usepackage[alf, abnt-emphasize=bf, recuo=0cm, abnt-etal-cite=2, abnt-etal-list=0, abnt-etal-text=it]{abntex2cite}  % Citações padrão ABNT
+\usepackage[alf, abnt-emphasize=bf, recuo=0cm, abnt-etal-cite=2, abnt-etal-list=0, abnt-etal-text=it]{lib/ufcTexcite}  % Citações padrão UFC/ABNT NBR 6023 de 2018
 %\usepackage[bottom]{footmisc}                      % Mantém as notas de rodapé sempre na mesma posição
 %\usepackage{times}                                 % Usa a fonte Times
 %%%%%%%%%%%%%%%%%%% AVISO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -91,13 +115,14 @@
 %\usepackage{upgreek}         % Fonte letras gregas
 \usepackage{appendix}         % Gerar o apendice no final do documento
 \usepackage{paracol}          % Criar paragrafos sem identacao
-\usepackage{lib/ufctex}	      % Biblioteca com as normas da UFC para trabalhos academicos
+\usepackage{lib/ufcTex}	      % Biblioteca com as normas da UFC para trabalhos academicos
 \usepackage{pdfpages}         % Incluir pdf no documento
 \usepackage{amsmath}          % Usar equacoes matematicas
 
 \makeglossaries % Organiza e gera a lista de abreviaturas, simbolos e glossario
 \makeindex      % Gera o Indice do documento         
 
-\usepackage[T1]{fontenc}
-\usepackage{inconsolata}
+\renewcommand{\labelitemi}{\textendash} %Altera os marcadores de itemize para 
+
+
 

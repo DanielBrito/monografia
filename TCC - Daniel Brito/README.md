@@ -1,4 +1,4 @@
-Para utilizar este template siga o tutorial disponível em: https://biblioteca.ufc.br/wp-content/uploads/2015/09/tutorial-sharelatex.pdf
+Para utilizar este template siga o tutorial disponível em: http://www.biblioteca.ufc.br/images/arquivos/instrucoes_modelos/tutorial_sharelatex.pdf
 
 # Útimas alterações
 03-07-2017              
@@ -42,14 +42,38 @@ Para utilizar este template siga o tutorial disponível em: https://biblioteca.u
     -Nota de esclarecimento de como utilizar siglas.
 07-06-2019
     -Atualização de contato para dúvidas e sugestões.
-23-09-2019
-    -Alteração do ano de 2018 para 2019. Atualização de tutorial ficha catalográfica para o Overleaf.
-    
+18-02-2020
+    -Lista de abreviaturas alterada. Estava em ordem alfabética e agora está em ordem que é citada no texto.
+    -Seções foram alterada para somente a primeira letra ficar em maiúsculo.
+    -Nomes de apêndices e anexos corrigidos para ficarem totalmente em maiúsculo e negrito.
+    -Citação com número de página incluída.
+    -Marcadores de itens modificados para "-".
+21-02-2020    
+    -criacao do arquivo "ufcTexcite.sty" na pasta "lib". Esse arquivo substitui o "abntTex2cite" que estava desatualizado perante a ABNT NBR 6023/2018. Nem todos as atualizacoes foram implementadas. Isso requer atencao do usuario para adequar ao guia de normalizacao academico. 
+    -Removido os simbolos "<" e ">" dos enderecos eletronicos.
+    -Adicionado o arquivo "abntex2-alf.bst" para alterar os simbolos "[S.l.]" e "[S.n.]" para italico e separados por espaco automaticamente. Antes isso so era possivel manualmente. 
+24-02-2020
+    -Travessão substituído por hífen no arquivo abntex2-alf.bst. 
+25-02-2020
+    -Correção de citação de estado.    
+26-02-2020
+    -Espaçamento após hífen removido alterando linha 404 do arquivo "abntex2.cls" e linhas 1280 e 1379 do arquivo "ufcTex.sty"
+28-02-2020
+    - Acrescentado novo colaborador da biblioteca central.
+    - Problema com espaço apos hifem resolvido provisoriamente.
+
 # O que é?
 
-O **ufctex** é um projeto adaptado do [abnTeX2] da Associação Brasileira de normas técnicas [ueceTeX] da Universidade Estadual do Ceará. Essa versão, foi criada para o desenvolvimento de trabalhos acadêmicos de acordo com as normas da Universidade Federal do Ceará. Este template deve ser utilizado online de qualquer computador ou sistema operacional sem a necessidade de instalação e foi disponibilizada no ShareLaTex e no OverLeaf. Entretanto, é possível baixar o template e trabalhar offline também. 
+O **ufctex** é um projeto adaptado do [abnTeX2] da Associação Brasileira de normas técnicas [ueceTeX] da Universidade Estadual do Ceará. Essa versão, foi criada para o desenvolvimento de trabalhos acadêmicos de acordo com as normas da Universidade Federal do Ceará. Este template deve ser utilizado online de qualquer computador ou sistema operacional sem a necessidade de instalação e foi disponibilizada no OverLeaf. Entretanto, é possível baixar o template e trabalhar offline também. 
 
 Espera-se que o projeto seja um modelo de trabalho acadêmico que implemente todas as exigências das normas da ABNT sem a necessidade de se preocupar com o estilo ou formatação do documento. Entretanto, a geração de referências bibliográficas automática apresenta limitações quanto a formatação exigida pela biblioteca da UFC. E devem ser ajustadas manualmente estando sujeitas a revisão do bibliotecário.
+
+Atenciosamente,
+
+Prof. Dr. Ednardo Rodrigues
+Seara da Ciência
+Departamento de Engenharia Elétrica.
+
 
 ### Modelos Disponíveis
 

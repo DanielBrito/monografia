@@ -93,12 +93,7 @@ Logo após, o processo continua a partir das seguintes regras:
 	{\Fonte{Próprio autor}}	
 \end{figure}
 
-%\clearpage
-
-% \section{Variações de modelos}
-% \label{sec:variacoes_modelos}
-
-Na sequência, serão apresentados outros exemplos de modelos que exploram diferentes combinações de parâmetros. Pelo fato do conjunto de regras utilizadas para gerá-los ser extenso, decidiu-se pela sua disponibilização no GitHub \footnote{\href{https://github.com/DanielBrito/monografia/tree/main/Resultados}{https://github.com/DanielBrito/monografia/tree/main/Resultados}}, para uma eventual consulta.
+Na sequência, serão apresentados outros exemplos que exploram diferentes combinações de parâmetros. As regras utilizadas na geração destes modelos encontram-se no Anexo \ref{an:ex_anexo_a}, bem como em um repositório no GitHub \footnote{\href{https://github.com/DanielBrito/monografia/tree/main/Resultados}{https://github.com/DanielBrito/monografia/tree/main/Resultados}}, para uma eventual consulta.
 
 A Figura \ref{fig:resultado_2} representa uma variação do modelo final obtido na Figura \ref{fig:modelo_final_solucao}(j), por meio da inclusão de estruturas arredondadas na região lateral direita.
 
@@ -140,7 +135,7 @@ Os modelos apresentados nas Figuras \ref{fig:variacoes_wonka2018}(a), \ref{fig:v
 
 \newpage
 
-A Figura \ref{fig:resultado_lowpoly} ilustra um dos diferenciais da solução proposta, que é a geração de modelos no formato \textit{low poly}, ou seja, com poucos polígonos, os quais podem ser utilizados em situações nas quais um alto grau de realismo não é requerido.
+A Figura \ref{fig:resultado_lowpoly} ilustra um dos diferenciais da solução proposta, que é a geração de modelos no formato \textit{low poly}, ou seja, com poucos polígonos, os quais podem ser utilizados em situações que um alto grau de realismo não é requerido.
 
 \begin{figure}[h!]
 	\centering
@@ -214,8 +209,6 @@ Por fim, a Figura \ref{fig:resultado_15} ilustra modelos de massa mais complexos
 	{\Fonte{Próprio autor}}	
 \end{figure}
 
-\vspace{1cm}
-
 Uma vez que a capacidade de modelagem da solução proposta foi demonstrada, através de exemplos ilustrativos originais e de variações baseadas nos trabalhos descritos no Capítulo \ref{cap:fundamentacao-teorica}, nas próximas seções, serão apresentados dados estatísticos acerca dos modelos gerados, bem como algumas limitações identificadas.
 
 \newpage
@@ -258,7 +251,7 @@ O presente trabalho representa um avanço no que se refere à geração procedur
 
 A regra correspondente à \textit{action} \texttt{roundShape} deve ser definida imediatamente após uma operação de extrusão, representada pela \textit{action} \texttt{addVolume}. Isto significa que não é possível a realização de todas as operações de extrusão desejadas para que, posteriormente, sejam realizadas as operações de deformação.
 
-Além disto, não é possível realizar uma operação de arredondamento em faces paralelas que possuem aresta em comum. Por exemplo, no modelo mostrado na Figura \ref{fig:limitacao_aresta}(a), as faces A e B compartilham a aresta destacada em branco. Logo, não é possível realizar uma operação de arredondamento nesta região. Entretanto, este problema pode ser contornado por meio da extrusão individual de ambas as faces. Uma vez que isto acontece, pode-se aplicar a operação de deformação normalmente, conforme ilustrado na Figura \ref{fig:limitacao_aresta}(b).
+Além disto, não é possível realizar uma operação de arredondamento em faces paralelas que possuem aresta em comum. Por exemplo, no modelo mostrado na Figura \ref{fig:limitacao_aresta}(a), as faces A e B compartilham a aresta destacada em branco. Logo, não é possível realizar uma operação de arredondamento nesta região. Entretanto, este impedimento pode ser contornado por meio da extrusão individual de ambas as faces. Uma vez que isto acontece, pode-se aplicar a operação de deformação normalmente, conforme ilustrado na Figura \ref{fig:limitacao_aresta}(b).
 
 \begin{figure}[h!]
 	\centering
@@ -272,6 +265,7 @@ Além disto, não é possível realizar uma operação de arredondamento em face
 
 Na implementação atual, também não é realizada uma representação da região arredondada na árvore de formas. Isto ocorre devido ao fato dos índices dos diversos segmentos criados após a operação \texttt{roundShape} não seguirem um padrão específico de numeração, o que dificulta a recuperação da referência dos respectivos polígonos para armazenamento.
 
-\vspace{1cm}
+\section{Considerações finais}
+\label{sec:consideracoes_capitulo_5}
 
-Por fim, este capítulo descreveu as principais características da solução proposta, desde detalhes de implementação até algumas limitações encontradas. Por meio dos modelos gerados, percebe-se que a operação de deformação introduzida é capaz de produzir resultados interessantes, com estruturas arquitetônicas arredondadas que remetem a edifícios do mundo real. Assim, no próximo capítulo, serão apresentadas as conclusões finais.
+Este capítulo descreveu as principais características da solução proposta, desde detalhes de implementação até algumas limitações encontradas. Por meio dos modelos gerados, percebe-se que a operação de deformação introduzida é capaz de produzir resultados interessantes, com estruturas arquitetônicas arredondadas que remetem a edifícios do mundo real. Assim, no próximo capítulo, serão apresentadas as conclusões finais da presente pesquisa.
