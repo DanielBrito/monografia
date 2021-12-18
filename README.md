@@ -42,7 +42,7 @@ Modeling virtual environments is an arduous task, and might require great time a
 
 ### 📃 Trabalho
 
-O arquivo do trabalho final pode ser encontrado [aqui](https://github.com/DanielBrito/monografia/blob/main/TCC%20-%20Daniel%20Brito/TCCII_Daniel_Brito.pdf).
+O arquivo do trabalho final pode ser encontrado no [repositório da UFC](http://www.repositorio.ufc.br/handle/riufc/59955).
 
 ---
 
