@@ -684,9 +684,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
              
@@ -717,9 +717,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
         
@@ -750,9 +750,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
          
@@ -783,9 +783,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
 
@@ -873,9 +873,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             bpy.ops.object.mode_set(mode = 'EDIT')
             
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
             
@@ -963,9 +963,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
             
@@ -997,9 +997,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
              
@@ -1030,9 +1030,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
         
@@ -1063,9 +1063,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
          
@@ -1096,9 +1096,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
 
@@ -1186,9 +1186,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             bpy.ops.object.mode_set(mode = 'EDIT')
             
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
             
@@ -1276,9 +1276,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             bpy.ops.object.mode_set(mode = 'EDIT')
 
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
             
@@ -1311,9 +1311,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
              
@@ -1344,9 +1344,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
         
@@ -1377,9 +1377,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
          
@@ -1410,9 +1410,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
 
@@ -1500,9 +1500,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
 
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
             
@@ -1590,9 +1590,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
 
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
             
@@ -1625,9 +1625,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
              
@@ -1658,9 +1658,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
         
@@ -1691,9 +1691,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
          
@@ -1724,9 +1724,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
 
@@ -1814,9 +1814,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
             
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
             bpy.ops.object.mode_set(mode = 'OBJECT')
             
@@ -1905,9 +1905,9 @@ def roundShape(object, type, direction, roundingDegree, segments, sideReference,
 
             # Applying specific deformation:
             if direction == "outside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", clamp_overlap=True)
             elif direction == "inside":
-                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, vertex_only=False, profile=insideDegree)
+                bpy.ops.mesh.bevel(offset=roundingDegree, offset_pct=0, segments=segments, affect="EDGES", profile=insideDegree, clamp_overlap=True)
             
     ## Deselecting everything:
     bpy.ops.object.mode_set(mode = 'EDIT')
