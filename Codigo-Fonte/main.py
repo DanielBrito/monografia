@@ -22,6 +22,8 @@ HIDE_VIRTUAL_SHAPES = True
 REMOVE_VIRTUAL_SHAPES = False
 
 
+bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(0, 0, 0), scale=(1, 1, 1))
+
 ########################################################################################################
 # $ CLASSES MODULE
 ########################################################################################################
