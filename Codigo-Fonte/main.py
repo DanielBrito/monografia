@@ -158,8 +158,10 @@ def create3DMass(label, width, depth, height):
     # Creating primitive object:
     bpy.ops.mesh.primitive_cube_add()
     
+    name = "Cube" if bpy.context.preferences.view.language == "en_US" else "Cubo"
+    
     # Selecting created object:
-    bpy.data.objects["Cube"].select_set(True)
+    bpy.data.objects[name].select_set(True)
     
     # Storing reference to object:
     mass = bpy.context.selected_objects[0]
